@@ -44,9 +44,14 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
+            //MenuItem {
+            //    text: qsTr("PocketQueries")
+            //    onClicked: pageStack.push(Qt.resolvedUrl("PocketQueries.qml"))
+            //}
+
             MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+                text: qsTr("Geocaches")
+                onClicked: pageStack.push(Qt.resolvedUrl("CacheList.qml"))
             }
         }
 
@@ -61,15 +66,48 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
             PageHeader {
-                title: qsTr("UI Template")
+                title: qsTr("Pocket Cacher")
             }
             Label {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Hello Sailors")
+                text: qsTr("<b>Hello Cachers</b>")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                text: qsTr(app.caches.count + " caches loaded")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                text: qsTr("<b>My Position</b>")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+                visible: app.myPosition.coordinate.isValid
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                text: app.myPosition.coordinate.latitude
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+                visible: app.myPosition.coordinate.isValid
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                text: app.myPosition.coordinate.longitude
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+                visible: app.myPosition.coordinate.isValid
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                text: app.myPosition.coordinate.altitude
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraLarge
+                visible: app.myPosition.coordinate.isValid
             }
         }
     }
 }
-

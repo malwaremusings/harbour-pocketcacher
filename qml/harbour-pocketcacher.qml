@@ -30,32 +30,54 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtPositioning 5.3
+import "pages"
 
+ApplicationWindow
+{
+    id: app
+    property alias caches: caches.caches
+    property alias myPosition: posSource.position
+    property alias myDirection: posSource.direction
 
-Page {
-    id: page
-
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
-    allowedOrientations: Orientation.All
-
-    SilicaListView {
-        id: listView
-        model: 20
-        anchors.fill: parent
-        header: PageHeader {
-            title: qsTr("Nested Page")
-        }
-        delegate: BackgroundItem {
-            id: delegate
-
-            Label {
-                x: Theme.horizontalPageMargin
-                text: qsTr("Item") + " " + index
-                anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-            }
-            onClicked: console.log("Clicked " + index)
-        }
-        VerticalScrollDecorator {}
+    CacheModel {
+        id: caches
     }
+
+    PositionSource {
+        id: posSource
+        updateInterval: 1000
+        active: true
+
+        property double previouslat: -999
+        property double previouslon: -999
+        property real direction
+        property int num: 0
+
+        onPositionChanged: {
+            console.debug("Position changed: " + position.coordinate.latitude + "," + position.coordinate.longitude + "," + position.coordinate.altitude);
+
+            /* calculate direction if compass sensor is unavailable */
+            if (position.directionValid) {
+                direction = position.direction;
+            } else {
+                if (previouslat != -999) {
+                    var previouscoords = QtPositioning.coordinate(previouslat,previouslon);
+                    direction = previouscoords.azimuthTo(position.coordinate);
+                } else {
+                    direction = -999;
+                }
+            }
+
+            console.debug("    dir: " + direction);
+            console.debug("    speed (" + position.speedValid + "): " + position.speed);
+
+            previouslat = position.coordinate.latitude;
+            previouslon = position.coordinate.longitude;
+        }
+    }
+
+    initialPage: Component { FirstPage { } }
+    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    allowedOrientations: defaultAllowedOrientations
 }

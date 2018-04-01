@@ -10,22 +10,31 @@
 #   - translation filenames have to be changed
 
 # The name of your application
-TARGET = harbour-cachehunter
+TARGET = harbour-pocketcacher
 
 CONFIG += sailfishapp
 
-SOURCES += src/harbour-cachehunter.cpp
+QT += location
 
-DISTFILES += qml/harbour-cachehunter.qml \
+SOURCES += src/harbour-pocketcacher.cpp
+
+DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
-    rpm/harbour-cachehunter.changes.in \
-    rpm/harbour-cachehunter.changes.run.in \
-    rpm/harbour-cachehunter.spec \
-    rpm/harbour-cachehunter.yaml \
+    rpm/harbour-pocketcacher.changes.in \
+    rpm/harbour-pocketcacher.changes.run.in \
+    rpm/harbour-pocketcacher.spec \
+    rpm/harbour-pocketcacher.yaml \
     translations/*.ts \
-    harbour-cachehunter.desktop
+    harbour-pocketcacher.desktop \
+    qml/pages/CacheList.qml \
+    qml/PocketQuery.qml \
+    qml/pages/PocketQueries.qml \
+    qml/PocketQueryJavascript.js \
+    qml/pages/CacheDetails.qml \
+    qml/CacheModel.qml \
+    qml/pages/CacheMap.qml \
+    qml/pages/CacheNavigate.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -37,4 +46,4 @@ CONFIG += sailfishapp_i18n
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-cachehunter-de.ts
+TRANSLATIONS += translations/harbour-pocketcacher-de.ts

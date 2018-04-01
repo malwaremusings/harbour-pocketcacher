@@ -28,14 +28,24 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.0
-import Sailfish.Silica 1.0
-import "pages"
+#ifdef QT_QML_DEBUG
+#include <QtQuick>
+#endif
 
-ApplicationWindow
+#include <sailfishapp.h>
+
+
+int main(int argc, char *argv[])
 {
-    initialPage: Component { FirstPage { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    allowedOrientations: defaultAllowedOrientations
-}
+    // SailfishApp::main() will display "qml/harbour-pocketcacher.qml", if you need more
+    // control over initialization, you can use:
+    //
+    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
+    //   - SailfishApp::createView() to get a new QQuickView * instance
+    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
+    //   - SailfishApp::pathToMainQml() to get a QUrl to the main QML file
+    //
+    // To display the view, call "show()" (will show fullscreen on device).
 
+    return SailfishApp::main(argc, argv);
+}
