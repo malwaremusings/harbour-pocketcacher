@@ -10,3 +10,5 @@ This application is still in the very early stages of development, although it i
 It has a few bugs, which are mostly user interface issues/improvements as I only got this phone (and SailfishOS) in December and only started Qt/QML development a week ago.
 
 I still have a lot of features that I want to implement, but I also have a full time job that keeps me busy during the week.
+
+Despite the name, this application has not been submitted to SailfishOS' Harbour. I've prefixed the name with 'harbour-' as I am intending to submit it once it has more features and less bugs/issues.

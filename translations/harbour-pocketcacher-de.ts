@@ -65,11 +65,4 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
-<context>
-    <name>PocketQueries</name>
-    <message>
-        <source>Add PocketQuery</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
 </TS>
