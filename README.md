@@ -1,48 +1,12 @@
-FEATURE REQUEST
-===============
+Pocket Cacher
+=============
 
-* ProgressBar for loading pocket query
+My geocaching application for SailfishOS.
 
-* Sort cache list by distance
+I have been wanting to create a phone based geocaching application for some time, as I haven't yet found one with all of the features that I'm after.
+I finally decided to give it a go after getting a new phone and installing SailfishOS on it, and not finding an existing application that would work with geocaching.com.
 
-* Filter cache list / caches on map
-	- by type
-	- by owner
-	- by favourite points
-	- by if trackables present
+This application is still in the very early stages of development, although it is at the stage where you can load a geocaching.com pocket query and use it to navigate to a cache.
+It has a few bugs, which are mostly user interface issues/improvements as I only got this phone (and SailfishOS) in December and only started Qt/QML development a week ago.
 
-* Colour caches by type? May go against Sailfish design principes
-	- use different icons instead
-
-* Ability to link photos to caches and/or trackables
-
-* Settings page
-	- Editable XML namespaces (GroundSpeak changed their's from /1/0 to /1/0/1 for instance)
-	- Option to limit pocket query load to x number of caches
-	- Option to change the units (m / ft)
-
-* Ability to load more than one pocket query at a time?
-
-* Remember which pocket query/queries were loaded, and reload them on startup
-
-* Ability to store info/clues for multicaches
-
-* Heat maps of caches / area
-
-* Map of trackables
-	- give distance to (from cache)
-
-* Heat map of trackables / area
-
-* Alert if you come within x metres of a cache
-
-
-ISSUES
-======
-
-* Pound Puppy Princess cache (GC44RNR) causes "cannot open: file:///images/icons/signal_smile.gif" suggesting that something in the cache long_description field is causing a file to be read!!
-  Similarly with short_description
-  It is parsing <img src="..."> tag from description VBT!
-
-* Cache description page is not scrollable
-  Suspect that this is because the components are filling the parent, so the size of the last component will only take it down to the bottom of the screen, rather than as tall as it needs to be to display the text.
+I still have a lot of features that I want to implement, but I also have a full time job that keeps me busy during the week.
