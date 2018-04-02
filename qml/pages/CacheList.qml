@@ -56,6 +56,9 @@ Page {
                 for (var i = 0;i < cachelist.count; i++) {
                     var c = cachelist.get(i);
 
+                    /* This seems to make the distance property a QJSValue rather than a QReal */
+                    /* Which then causes an error when we try to display it as text in a Label */
+                    c.distance = Qt.binding(function() { return app.myPosition.coordinate.distanceTo(Qt.coordinate(c.lat,c.lon)); });
                     app.caches.append(c);
                 }
             }
@@ -157,8 +160,7 @@ Page {
             VerticalScrollDecorator {}
 
             BusyIndicator {
-                size: BusyIndicatorSize.Large
-                anchors.centerIn: pocketquery
+                size: BusyIndicatorSize.Medium
                 running: pocketquery.status == 2   /* XmlListModel.Loading */
             }
         }

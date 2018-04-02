@@ -34,7 +34,8 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     qml/pages/CacheDetails.qml \
     qml/CacheModel.qml \
     qml/pages/CacheMap.qml \
-    qml/pages/CacheNavigate.qml
+    qml/pages/CacheNavigate.qml \
+    qml/pages/CacheLogger.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

@@ -31,6 +31,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
+import QtQuick.LocalStorage 2.0
 import "pages"
 
 ApplicationWindow
@@ -39,6 +40,7 @@ ApplicationWindow
     property alias caches: caches.caches
     property alias myPosition: posSource.position
     property alias myDirection: posSource.direction
+    property var   db
 
     CacheModel {
         id: caches
@@ -80,4 +82,23 @@ ApplicationWindow
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
+    Component.onCompleted: {
+        try {
+            db = LocalStorage.openDatabaseSync("pocketcacher","0.1","Pocket Cacher database for storing stuff",1000);
+
+            if (db) {
+                console.debug("    Got database");
+                db.transaction(
+                            function(tx) {
+                                // Create the database if it doesn't exist
+                                // (after dropping it if it does :) )
+                                // tx.executeSql("DROP TABLE IF EXISTS CacheLogger");
+                                tx.executeSql("CREATE TABLE IF NOT EXISTS CacheLogger(name TEXT,date TEXT,type TEXT,finder TEXT,text TEXT)");
+                            });
+            }
+        } catch (e) {
+            console.debug("database creation failed: " + e);
+        }
+    }
 }

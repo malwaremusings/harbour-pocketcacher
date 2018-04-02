@@ -13,7 +13,7 @@ Page {
     }
 
     Component.onCompleted: {
-        mapCentre = QtPositioning.coordinate(-35.2819,149.1289,0.0);
+        mapCentre = QtPositioning.coordinate(0.0,0.0,0.0);
         mapCache.zoomLevel = mapCache.maximumZoomlevel;
     }
 

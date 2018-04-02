@@ -4,23 +4,15 @@
 <context>
     <name>CacheDetails</name>
     <message>
-        <source>&lt;b&gt;Details&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Summary&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Description&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Navigate to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Summary</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -40,6 +32,17 @@
     </message>
 </context>
 <context>
+    <name>CacheLogger</name>
+    <message>
+        <source>Select date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select time</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
@@ -48,10 +51,6 @@
 </context>
 <context>
     <name>FirstPage</name>
-    <message>
-        <source>&lt;b&gt;My Position&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Pocket Cacher</source>
         <translation type="unfinished"></translation>
@@ -62,6 +61,14 @@
     </message>
     <message>
         <source>Geocaches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Position</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

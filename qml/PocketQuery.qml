@@ -14,6 +14,9 @@ Item {
         query: "/gpx/wpt"
         namespaceDeclarations: "declare namespace groundspeak='http://www.groundspeak.com/cache/1/0/1'; declare default element namespace 'http://www.topografix.com/GPX/1/0';"
 
+        /*
+         * Get cache details
+         */
         XmlRole { name: "lat"; query: "@lat/string()" }
         XmlRole { name: "lon"; query: "@lon/string()" }
         XmlRole { name: "name"; query: "name/string()" }

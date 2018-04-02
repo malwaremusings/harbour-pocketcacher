@@ -74,19 +74,21 @@ Page {
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
+
+            SectionHeader {
+                text: qsTr("Information")
+            }
+
             Label {
                 x: Theme.horizontalPageMargin
                 text: qsTr(app.caches.count + " caches loaded")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
-            Label {
-                x: Theme.horizontalPageMargin
-                text: qsTr("<b>My Position</b>")
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
-                visible: app.myPosition.coordinate.isValid
+            SectionHeader {
+                text: qsTr("My Position")
             }
+
             Label {
                 x: Theme.horizontalPageMargin
                 text: app.myPosition.coordinate.latitude

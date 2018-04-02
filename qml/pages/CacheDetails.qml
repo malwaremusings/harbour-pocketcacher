@@ -16,8 +16,7 @@ Page {
             MenuItem {
                 text: qsTr("Log")
                 onClicked: {
-                    // pageStack.push(Qt.resolvedUrl("CacheMap.qml"));
-                    console.debug("CacheDetails.qml 'Log' menu");
+                    pageStack.push(Qt.resolvedUrl("CacheLogger.qml"),{ cache: cache });
                 }
             }
 
@@ -40,12 +39,8 @@ Page {
                 title: cache.gsname
             }
 
-            Label {
-                width: parent.width
-
-                text: qsTr("<b>Details</b>")
-                font.family: Theme.fontFamilyHeading
-                horizontalAlignment: Text.AlignHCenter
+            SectionHeader {
+                text: "Details"
             }
 
             Row {
@@ -118,12 +113,8 @@ Page {
                 }
             }
 
-            Label {
-                width: parent.width
-
-                text: qsTr("<b>Summary</b>")
-                font.family: Theme.fontFamilyHeading
-                horizontalAlignment: Text.AlignHCenter
+            SectionHeader {
+                text: qsTr("Summary")
             }
 
             Label {
@@ -135,12 +126,8 @@ Page {
                 wrapMode: Text.Wrap
             }
 
-            Label {
-                width: parent.width
-
-                text: qsTr("<b>Description</b>")
-                font.family: Theme.fontFamilyHeading
-                horizontalAlignment: Text.AlignHCenter
+            SectionHeader {
+                text: "Description"
             }
 
             Label {
