@@ -29,6 +29,7 @@
 */
 
 import QtQuick 2.0
+// import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import ".."
@@ -112,7 +113,12 @@ Page {
                             color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                             horizontalAlignment: Text.AlignLeft
                             truncationMode: TruncationMode.Fade
-                            wrapMode: Text.Wrap
+                            /*
+                             * Wrapping the text causes the cache name to be
+                             * placed on top of the gsname in the next cell
+                             * down
+                             */
+                            // wrapMode: Text.Wrap
                         }
 
                         Label {
@@ -121,7 +127,7 @@ Page {
                             color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                             horizontalAlignment: Text.AlignRight
                             truncationMode: TruncationMode.Fade
-                            wrapMode: Text.Wrap
+                            // wrapMode: Text.Wrap
                         }
 
                         Label {
@@ -130,7 +136,7 @@ Page {
                             color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                             horizontalAlignment: Text.AlignLeft
                             truncationMode: TruncationMode.Fade
-                            wrapMode: Text.Wrap
+                            // wrapMode: Text.Wrap
                         }
 
                         Label {
@@ -149,6 +155,12 @@ Page {
                 }
             }
             VerticalScrollDecorator {}
+
+            BusyIndicator {
+                size: BusyIndicatorSize.Large
+                anchors.centerIn: pocketquery
+                running: pocketquery.status == 2   /* XmlListModel.Loading */
+            }
         }
     }
 
@@ -162,18 +174,6 @@ Page {
             onSelectedContentPropertiesChanged: {
                 pocketquery.filename = selectedContentProperties.filePath;
             }
-        }
-    }
-
-    Component {
-        id: progress
-
-        ProgressBar {
-            label: "Loading Pocket Query"
-            minimumValue: 0.0
-            maximumValue: 1.0
-            value: pocketquery.progress
-            valueText: value + "%"
         }
     }
 }
