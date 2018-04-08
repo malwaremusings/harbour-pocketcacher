@@ -28,7 +28,7 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
 import QtQuick.LocalStorage 2.0
@@ -40,10 +40,15 @@ ApplicationWindow
     property alias caches: caches.caches
     property alias myPosition: posSource.position
     property alias myDirection: posSource.direction
+    property alias logbook: logbook
     property var   db
 
     CacheModel {
         id: caches
+    }
+
+    LogBookModel {
+        id: logbook
     }
 
     PositionSource {
@@ -57,7 +62,7 @@ ApplicationWindow
         property int num: 0
 
         onPositionChanged: {
-            console.debug("Position changed: " + position.coordinate.latitude + "," + position.coordinate.longitude + "," + position.coordinate.altitude);
+            // console.debug("Position changed: " + position.coordinate.latitude + "," + position.coordinate.longitude + "," + position.coordinate.altitude);
 
             /* calculate direction if compass sensor is unavailable */
             if (position.directionValid) {
@@ -71,8 +76,8 @@ ApplicationWindow
                 }
             }
 
-            console.debug("    dir: " + direction);
-            console.debug("    speed (" + position.speedValid + "): " + position.speed);
+            // console.debug("    dir: " + direction);
+            // console.debug("    speed (" + position.speedValid + "): " + position.speed);
 
             previouslat = position.coordinate.latitude;
             previouslon = position.coordinate.longitude;
@@ -82,23 +87,4 @@ ApplicationWindow
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
-
-    Component.onCompleted: {
-        try {
-            db = LocalStorage.openDatabaseSync("pocketcacher","0.1","Pocket Cacher database for storing stuff",1000);
-
-            if (db) {
-                console.debug("    Got database");
-                db.transaction(
-                            function(tx) {
-                                // Create the database if it doesn't exist
-                                // (after dropping it if it does :) )
-                                // tx.executeSql("DROP TABLE IF EXISTS CacheLogger");
-                                tx.executeSql("CREATE TABLE IF NOT EXISTS CacheLogger(name TEXT,date TEXT,type TEXT,finder TEXT,text TEXT)");
-                            });
-            }
-        } catch (e) {
-            console.debug("database creation failed: " + e);
-        }
-    }
 }

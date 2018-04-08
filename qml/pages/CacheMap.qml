@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
 import QtLocation 5.0
@@ -13,8 +13,8 @@ Page {
     }
 
     Component.onCompleted: {
-        mapCentre = QtPositioning.coordinate(0.0,0.0,0.0);
-        mapCache.zoomLevel = mapCache.maximumZoomlevel;
+        mapCentre = app.myPosition.coordinate;
+        // mapCache.zoomLevel = mapCache.maximumZoomLevel;
     }
 
     SilicaFlickable {
@@ -24,13 +24,16 @@ Page {
             id: mapCache
 
             anchors.fill: parent
-            anchors.leftMargin: Theme.horizontalPageMargin
-            anchors.rightMargin: Theme.horizontalPageMargin
+            /* This looks a bit daft! */
+            // anchors.leftMargin: Theme.horizontalPageMargin
+            // anchors.rightMargin: Theme.horizontalPageMargin
 
             plugin: mapPlugin
 
             center: mapCentre
-            zoomLevel: 13
+            zoomLevel: maximumZoomLevel
+
+            gesture.enabled: true
 
             MapItemView {
                 id: miv

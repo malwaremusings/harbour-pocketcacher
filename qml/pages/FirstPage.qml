@@ -28,7 +28,7 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 
 
@@ -44,10 +44,18 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
+            /*
+             * future feature to allow management of loaded pocket queries
+             */
             //MenuItem {
             //    text: qsTr("PocketQueries")
             //    onClicked: pageStack.push(Qt.resolvedUrl("PocketQueries.qml"))
             //}
+
+            MenuItem {
+                text: qsTr("Log Book")
+                onClicked: pageStack.push(Qt.resolvedUrl("LogBook.qml"))
+            }
 
             MenuItem {
                 text: qsTr("Geocaches")
@@ -79,35 +87,55 @@ Page {
                 text: qsTr("Information")
             }
 
-            Label {
+            DetailItem {
                 x: Theme.horizontalPageMargin
-                text: qsTr(app.caches.count + " caches loaded")
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
-            }
-            SectionHeader {
-                text: qsTr("My Position")
+                label: qsTr("Loaded caches")
+                value: app.caches.count
             }
 
-            Label {
+            DetailItem {
                 x: Theme.horizontalPageMargin
-                text: app.myPosition.coordinate.latitude
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                label: qsTr("Logbook entries")
+                value: app.logbook.logentries.count
+            }
+
+            SectionHeader {
+                text: qsTr("My Position")
                 visible: app.myPosition.coordinate.isValid
             }
-            Label {
+
+            DetailItem {
                 x: Theme.horizontalPageMargin
-                text: app.myPosition.coordinate.longitude
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                label: qsTr("Latitude")
+                value: app.myPosition.coordinate.latitude
                 visible: app.myPosition.coordinate.isValid
             }
-            Label {
+
+            DetailItem {
                 x: Theme.horizontalPageMargin
-                text: app.myPosition.coordinate.altitude
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+                label: qsTr("Longitude")
+                value: app.myPosition.coordinate.longitude
+                visible: app.myPosition.coordinate.isValid
+            }
+
+            DetailItem {
+                x: Theme.horizontalPageMargin
+                label: qsTr("Altitude")
+                value: qsTr(app.myPosition.coordinate.altitude + " m")
+                visible: app.myPosition.coordinate.isValid
+            }
+
+            DetailItem {
+                x: Theme.horizontalPageMargin
+                label: qsTr("Accuracy")
+                value: qsTr(app.myPosition.horizontalAccuracy + " m")
+                visible: app.myPosition.horizontalAccuracyValid
+            }
+
+            DetailItem {
+                x: Theme.horizontalPageMargin
+                label: qsTr("Timestamp")
+                value: app.myPosition.timestamp
                 visible: app.myPosition.coordinate.isValid
             }
         }

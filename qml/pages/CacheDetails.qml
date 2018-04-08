@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
 
@@ -10,11 +10,21 @@ Page {
     property var bearing: hereiam.azimuthTo(cachecoords)
 
     SilicaFlickable {
+        // anchors {
+        //     top:header.bottom
+        //     bottom: parent.bottom
+        //     left: parent.left
+        //     right: parent.right
+        // }
+
         anchors.fill: parent
+        anchors.leftMargin: Theme.horizontalPageMargin
+        anchors.rightMargin: Theme.horizontalPageMargin
+        contentHeight: colCacheDetails.height
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Log")
+                text: qsTr("Log geocache")
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("CacheLogger.qml"),{ cache: cache });
                 }
@@ -31,11 +41,13 @@ Page {
         }
 
         Column {
-            anchors.fill: parent
-            anchors.leftMargin: Theme.horizontalPageMargin
-            anchors.rightMargin: Theme.horizontalPageMargin
+            id: colCacheDetails
+
+            width: parent.width
 
             PageHeader {
+                id: header
+
                 title: cache.gsname
             }
 
@@ -121,6 +133,7 @@ Page {
                 width: parent.width
 
                 text: qsTr(cache.short_description)
+                //textFormat: Text.PlainText
                 horizontalAlignment: Text.AlignLeft
                 // truncationMode: TruncationMode.Fade
                 wrapMode: Text.Wrap
@@ -134,10 +147,15 @@ Page {
                 width: parent.width
 
                 text: qsTr(cache.long_description)
+                //textFormat: Text.PlainText
                 horizontalAlignment: Text.AlignLeft
                 // truncationMode: TruncationMode.Fade
                 wrapMode: Text.Wrap
             }
+
         }
+
+        VerticalScrollDecorator { }
+
     }
 }

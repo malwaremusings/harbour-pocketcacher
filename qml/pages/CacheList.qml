@@ -28,7 +28,7 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 // import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
@@ -45,58 +45,61 @@ Page {
     PocketQuery {
         id: pocketquery
         filename: ""
-
-        cachelist.onStatusChanged: {
-            console.debug("> cachelist.onStatusChanged: " + status);
-
-            if (status === 2) {  /* XmlListModel.Loading */
-            }
-
-            if (status === 1) {  /* XmlListModel.Ready */
-                for (var i = 0;i < cachelist.count; i++) {
-                    var c = cachelist.get(i);
-
-                    /* This seems to make the distance property a QJSValue rather than a QReal */
-                    /* Which then causes an error when we try to display it as text in a Label */
-                    c.distance = Qt.binding(function() { return app.myPosition.coordinate.distanceTo(Qt.coordinate(c.lat,c.lon)); });
-                    app.caches.append(c);
-                }
-            }
-
-            console.debug("< cachelist.onStatusChanged: " + status);
-        }
     }
 
     SilicaFlickable {
         anchors.fill: parent
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Show map")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("CacheMap.qml"));
-                }
-            }
-
-            MenuItem {
-                text: qsTr("Load PocketQuery")
-                onClicked: {
-                    pageStack.push(filePickerPage);
-                }
-            }
-        }
-
         SilicaListView {
             id: listView
 
-            model: app.caches
             anchors.fill: parent
+
+            model: app.caches
+
             header: PageHeader {
                 title: qsTr("Geocaches")
             }
             spacing: 2
 
+            PullDownMenu {
+                MenuItem {
+                    text: qsTr("Show map")
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("CacheMap.qml"));
+                    }
+                }
+
+                MenuItem {
+                    text: qsTr("Load PocketQuery")
+                    onClicked: {
+                        pageStack.push(filePickerPage);
+                    }
+                }
+            }
+
             VerticalScrollDecorator {}
+
+            ViewPlaceholder {
+                id: placeholder
+
+                enabled: (listView.count == 0)
+                text: qsTr("No geocaches loaded")
+                hintText: qsTr("Load a pocket query")
+
+                state: (pocketquery.status == 2) ? qsTr("Loading") : ""
+                states: [
+                    State {
+                        name: ""
+                        PropertyChanges { target: placeholder; text: "No geocaches loaded"; hintText: "Load a pocket query" }
+                        },
+
+                    State {
+                        name: "Loading"
+                        PropertyChanges { target: placeholder; text: "Loading geocaches"; hintText: "" }
+                    }
+                ]
+            }
 
             delegate: BackgroundItem {
                 id: delegate
@@ -152,7 +155,7 @@ Page {
                 }
 
                 onClicked: {
-                    console.log("Clicked " + qsTr(name));
+                    console.debug("Clicked " + qsTr(name));
 
                     pageStack.push(Qt.resolvedUrl("CacheDetails.qml"),{ cache: app.caches.get(index) });
                 }
@@ -160,7 +163,10 @@ Page {
             VerticalScrollDecorator {}
 
             BusyIndicator {
-                size: BusyIndicatorSize.Medium
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                size: BusyIndicatorSize.Large
                 running: pocketquery.status == 2   /* XmlListModel.Loading */
             }
         }
