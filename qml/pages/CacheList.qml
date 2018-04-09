@@ -145,11 +145,22 @@ Page {
                             // wrapMode: Text.Wrap
                         }
 
-                        Label {
+                        Row {
                             width: parent.width / parent.columns
-                            text: difficulty + "/" + terrain
-                            color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-                            horizontalAlignment: Text.AlignRight
+
+                            Label {
+                                width: parent.width / 2
+                                text: difficulty + "/" + terrain
+                                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                                horizontalAlignment: Text.AlignRight
+                            }
+
+                            Label {
+                                width: parent.width / 2
+                                text: distance + " m"
+                                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                                horizontalAlignment: Text.AlignRight
+                            }
                         }
                     }
                 }

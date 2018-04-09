@@ -81,6 +81,8 @@ ApplicationWindow
 
             previouslat = position.coordinate.latitude;
             previouslon = position.coordinate.longitude;
+
+            caches.refresh_distances();
         }
     }
 
