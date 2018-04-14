@@ -51,19 +51,15 @@ Item {
                     /* This seems to make the distance property a QJSValue rather than a QReal */
                     /* Which then causes an error when we try to display it as text in a Label */
                     // c.distance = Qt.binding(function() { return app.myPosition.coordinate.distanceTo(Qt.coordinate(c.lat,c.lon)); });
-                    // newCache = new Cache(c);
+                    //c.distance = Qt.binding(function () { return app.myPosition.coordinate.isValid ? Math.round(app.myPosition.coordinate.distanceTo(QtPositioning.coordinate(c.lat,c.lon))) : -1; });
+                    //c.distance = app.myPosition.coordinate.isValid ? Math.round(app.myPosition.coordinate.distanceTo(QtPositioning.coordinate(c.lat,c.lon))) : -1;
 
-                    // newCache.distance = Qt.binding(function() { return app.myPosition.coordinate.distanceTo(Qt.coordinate(c.lat,c.lon)); }));
-                    // JsCreateCache.createCache(c);
-                    // if (JsCreateCache.newCache != null) {
-                    //newCache = JsCache.Cache(c);
-                    app.caches.append(c);
-                    // } else {
-                    //     console.debug("PocketQuery.qml::onStateChanged() new cache is null");
-                    // }
-
-                    // app.caches.setProperty(app.caches.count - 1,"distance",Qt.binding(function() { return app.myPosition.coordinate.distanceTo(Qt.coordinate(c.lat,c.lon)); }));
+                    /* use -1 to indicate unknown distance */
+                    c.distance = -1;
+                    app.allcaches.push(c);
                 }
+
+                app.cachemodel.refresh();
             }
 
             console.debug("< cachelist.onStatusChanged: " + status);

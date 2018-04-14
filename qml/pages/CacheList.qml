@@ -64,6 +64,13 @@ Page {
 
             PullDownMenu {
                 MenuItem {
+                    text: qsTr("Sort")
+                    onClicked: {
+                        app.cachemodel.refresh();
+                    }
+                }
+
+                MenuItem {
                     text: qsTr("Show map")
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("CacheMap.qml"));

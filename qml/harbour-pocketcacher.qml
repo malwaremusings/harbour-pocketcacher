@@ -34,6 +34,7 @@ import QtPositioning 5.3
 import QtQuick.LocalStorage 2.0
 import "pages"
 
+
 ApplicationWindow
 {
     id: app
@@ -42,6 +43,11 @@ ApplicationWindow
     property alias myDirection: posSource.direction
     property alias logbook: logbook
     property var   db
+    // property alias cachemodel: cacheModelJS.cacheModel
+    // property alias cachemodel: caches.cacheModelJS
+    property alias cachemodel: caches
+    property alias allcaches: caches.allcaches
+
 
     CacheModel {
         id: caches
