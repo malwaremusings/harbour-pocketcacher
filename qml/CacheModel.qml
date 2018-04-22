@@ -2,6 +2,8 @@ import QtQuick 2.2
 import QtPositioning 5.3
 
 Item {
+    id: cacheModel
+
     property alias caches: lstCaches
     property alias cachesFound: lstCachesFound
     property var   allcaches: []

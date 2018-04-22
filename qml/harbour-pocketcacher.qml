@@ -31,7 +31,7 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
-import QtQuick.LocalStorage 2.0
+import com.malwaremusings 0.1
 import "pages"
 
 
@@ -42,12 +42,9 @@ ApplicationWindow
     property alias myPosition: posSource.position
     property alias myDirection: posSource.direction
     property alias logbook: logbook
-    property var   db
-    // property alias cachemodel: cacheModelJS.cacheModel
-    // property alias cachemodel: caches.cacheModelJS
     property alias cachemodel: caches
     property alias allcaches: caches.allcaches
-
+    property alias beeper: beeper
 
     CacheModel {
         id: caches
@@ -55,6 +52,12 @@ ApplicationWindow
 
     LogBookModel {
         id: logbook
+
+        property alias db: dbLogBookModel
+
+        Database {
+            id: dbLogBookModel
+        }
     }
 
     PositionSource {
@@ -89,6 +92,18 @@ ApplicationWindow
             previouslon = position.coordinate.longitude;
 
             caches.refresh_distances();
+        }
+    }
+
+    Beeper {
+        id: beeper
+
+        Component.onCompleted: {
+            // beeper.beep(220,1);
+            beeper.open();
+            beeper.setDuration(0.075);
+            beeper.setFrequency(440);
+            // beeper.beep(880,1);
         }
     }
 

@@ -28,6 +28,7 @@ Item {
         XmlRole { name: "owner"; query: "groundspeak:cache/groundspeak:owner/string()" }
         XmlRole { name: "short_description"; query: "groundspeak:cache/groundspeak:short_description/string()" }
         XmlRole { name: "long_description"; query: "groundspeak:cache/groundspeak:long_description/string()" }
+        XmlRole { name: "encoded_hints"; query: "groundspeak:cache/groundspeak:encoded_hints/string()" }
 
         //XmlRole { name: "last_found_log"; query: "groundspeak:cache/groundspeak:logs/groundspeak:log/groundspeak:type[matches(text(),'Found it')]/../groundspeak:date/text()" }
         XmlRole { name: "last_log"; query: "groundspeak:cache/groundspeak:logs/groundspeak:log[1]/groundspeak:date/string()" }
@@ -56,6 +57,14 @@ Item {
 
                     /* use -1 to indicate unknown distance */
                     c.distance = -1;
+                    // c.times = { "navigate": { "start": 0, "stop": 0 },
+                    //             "search": { "start": 0, "stop": 0 },
+                    //             "log": 0 };
+                    c.navigateStart = 0;
+                    c.navigateEnd = 0;
+                    c.searchStart = 0;
+                    c.searchEnd = 0;
+
                     app.allcaches.push(c);
                 }
 

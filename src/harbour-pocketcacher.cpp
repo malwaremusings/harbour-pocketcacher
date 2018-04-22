@@ -33,7 +33,7 @@
 #endif
 
 #include <sailfishapp.h>
-
+#include "Beeper.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathToMainQml() to get a QUrl to the main QML file
     //
     // To display the view, call "show()" (will show fullscreen on device).
+
+    qmlRegisterType<Beeper>("com.malwaremusings",0,1,"Beeper");
 
     return SailfishApp::main(argc, argv);
 }
