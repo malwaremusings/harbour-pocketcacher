@@ -14,9 +14,10 @@ TARGET = harbour-pocketcacher
 
 CONFIG += sailfishapp
 
-QT += location
+QT += location multimedia
 
-SOURCES += src/harbour-pocketcacher.cpp
+SOURCES += src/harbour-pocketcacher.cpp \
+    src/Beeper.cpp
 
 DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
@@ -37,7 +38,9 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     qml/pages/CacheNavigate.qml \
     qml/pages/CacheLogger.qml \
     qml/pages/LogBookEntryDetails.qml \
-    qml/pages/SaveFileDialog.qml
+    qml/pages/SaveFileDialog.qml \
+    qml/harbour-pocketcacher.js \
+    qml/Database.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -50,3 +53,6 @@ CONFIG += sailfishapp_i18n
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/harbour-pocketcacher-de.ts
+
+HEADERS += \
+    src/Beeper.h
