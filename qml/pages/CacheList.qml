@@ -195,6 +195,9 @@ Page {
         id: filePickerPage
 
         FilePickerPage {
+            anchors.leftMargin: Theme.horizontalPageMargin
+            anchors.rightMargin: Theme.horizontalPageMargin
+
             title: "Select Pocket Query File"
             nameFilters: [ '*.gpx' ]
             onSelectedContentPropertiesChanged: {

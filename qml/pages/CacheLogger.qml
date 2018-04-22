@@ -54,15 +54,22 @@ Dialog {
                 Button {
                     id: buttonDate
 
+                    property int day: rowDateTime.currentTime.getDate()
+                    property int month: rowDateTime.currentTime.getMonth()
+                    property int year: rowDateTime.currentTime.getYear()
+
                     width: Theme.buttonWidthSmall
 
-                    text: qsTr("Select date")
+                    text: qsTr((rowDateTime.currentTime.getYear() + 1900) + "-" + ("0" + (rowDateTime.currentTime.getMonth() + 1)).substr(-2) + "-" + ("0" + rowDateTime.currentTime.getDate()).substr(-2))
 
                     onClicked: {
                         var dialog = pageStack.push(pickerDate,{ date: rowDateTime.currentTime });
 
                         dialog.accepted.connect(function() {
                             buttonDate.text = qsTr(dialog.dateText);
+                            buttonDate.day = dialog.day;
+                            buttonDate.month = dialog.month;
+                            buttonDate.year = dialog.year;
                         });
                     }
 
@@ -75,8 +82,12 @@ Dialog {
 
                 Button {
                     id: buttonTime
+
+                    property int hour: rowDateTime.currentTime.getHours()
+                    property int minute: rowDateTime.currentTime.getMinutes()
+
                     width: Theme.buttonWidthSmall
-                    text: qsTr("Select time")
+                    text: qsTr(rowDateTime.currentTime.getHours() + ":" + rowDateTime.currentTime.getMinutes())
 
                     onClicked: {
                         var dialog = pageStack.push(pickerTime,{
@@ -87,6 +98,8 @@ Dialog {
 
                         dialog.accepted.connect(function() {
                             buttonTime.text = qsTr(dialog.timeText);
+                            buttonTime.hour = dialog.hour;
+                            buttonTime.minute = dialog.minute;
                         });
                     }
 
@@ -125,22 +138,11 @@ Dialog {
          * https://doc.qt.io/qt-5/qml-qtqml-date.html
          */
 
-        var datetimebits = (buttonDate.text + " " + buttonTime.text).split(" ");
-
-        /* this can be a const */
-        var monthStr = "JanFebMarAprMayJunJulAugSepOctNovDec";
-
-        var month = parseInt(monthStr.indexOf(datetimebits[1]) / 3);
-
-        var timestr = datetimebits[3];
-        var hours = parseInt(timestr.substr(0,timestr.indexOf(":")));
-        var mins = parseInt(timestr.substr(timestr.indexOf(":") + 1));
-
-        var datetime = new Date(parseInt(datetimebits[2]),month,parseInt(datetimebits[0]),hours,mins);
-        var d = datetimebits[2] + "-" + ("0" + (month + 1)).substr(-2) + "-" + ("0" + datetimebits[0]).substr(-2);
+        var datetime = new Date(buttonDate.year,buttonDate.month,buttonDate.day,buttonTime.hour,buttonTime.minute);
+        var d = (buttonDate.year + 1900) + "-" + ("0" + (buttonDate.month + 1)).substr(-2) + "-" + ("0" + buttonDate.day).substr(-2);
 
         /* should check for a valid db object first */
-        app.logbook.add({"name": cache.name,"timestamp": datetime.valueOf(),"date": d,"time": timestr,"type": type,"finder": finder,"text": text});
+        app.logbook.add({"name": cache.name,"timestamp": datetime.valueOf(),"date": d,"time": buttonTime.text,"type": type,"finder": finder,"text": text});
         // app.logbook.logentries.append({"name": cache.name,"timestamp": datetime.valueOf(),"date": d,"time": timestr,"type": type,"finder": finder,"text": text});
         console.debug("< CacheLogger.qml::onAccepted()");
     }

@@ -1,6 +1,8 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
+import "../harbour-pocketcacher.js" as JSPocketCacher
+
 
 Page {
     property var cache
@@ -18,8 +20,6 @@ Page {
         // }
 
         anchors.fill: parent
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.rightMargin: Theme.horizontalPageMargin
         contentHeight: colCacheDetails.height
 
         PullDownMenu {
@@ -43,6 +43,8 @@ Page {
         Column {
             id: colCacheDetails
 
+            anchors.leftMargin: Theme.horizontalPageMargin
+            anchors.rightMargin: Theme.horizontalPageMargin
             width: parent.width
 
             PageHeader {
@@ -56,6 +58,8 @@ Page {
             }
 
             Row {
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {
@@ -80,6 +84,8 @@ Page {
             }
 
             Row {
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {
@@ -108,6 +114,8 @@ Page {
             }
 
             Row {
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {
@@ -140,7 +148,7 @@ Page {
             }
 
             SectionHeader {
-                text: "Description"
+                text: qsTr("Description")
             }
 
             Label {
@@ -151,6 +159,29 @@ Page {
                 horizontalAlignment: Text.AlignLeft
                 // truncationMode: TruncationMode.Fade
                 wrapMode: Text.Wrap
+            }
+
+            SectionHeader {
+                text: qsTr("Hint")
+
+                visible: cache.encoded_hints !== ""
+            }
+
+            TextSwitch {
+                id: txtswRevealHint
+
+                text: qsTr("Decode hint")
+                checked: false
+                visible: cache.encoded_hints !== ""
+            }
+
+            Label {
+                width: parent.width
+
+                text: txtswRevealHint.checked ? qsTr(cache.encoded_hints) : qsTr(JSPocketCacher.rot13(cache.encoded_hints))
+                horizontalAlignment: Text.AlignLeft
+                wrapMode: Text.Wrap
+                visible: cache.encoded_hints !== ""
             }
 
         }

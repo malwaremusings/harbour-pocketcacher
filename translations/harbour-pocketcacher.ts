@@ -15,6 +15,18 @@
         <source>Log geocache</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decode hint</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CacheList</name>
@@ -48,13 +60,57 @@
     </message>
 </context>
 <context>
-    <name>CacheLogger</name>
+    <name>CacheNavigate</name>
     <message>
-        <source>Select date</source>
+        <source>Owner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select time</source>
+        <source>Last log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> metre(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Positioning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal accuracy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Travel time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log geocache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Navigation sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound to indicate distance and bearing to cache</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
