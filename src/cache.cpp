@@ -80,6 +80,7 @@ QString Cache::lastFound() const
     return m_lastFound;
 }
 
+#if 0
 qreal Cache::distance() const
 {
     return m_distance;
@@ -89,6 +90,7 @@ qreal Cache::bearing() const
 {
     return m_bearing;
 }
+#endif
 
 int Cache::navigateStart() const
 {
@@ -224,11 +226,12 @@ void Cache::setLastFound(QString lastFound)
     }
 }
 
+#if 0
 void Cache::setDistance(qreal distance)
 {
     if (m_distance != distance) {
         m_distance = distance;
-        emit distanceChanged(m_distance);
+        emit distanceChanged();
     }
 }
 
@@ -236,15 +239,16 @@ void Cache::setBearing(qreal bearing)
 {
     if (m_bearing != bearing) {
         m_bearing = bearing;
-        emit bearingChanged(m_bearing);
+        emit bearingChanged();
     }
 }
+#endif
 
 void Cache::setNavigateStart(int navigateStart)
 {
     if (m_navigateStart != navigateStart) {
         m_navigateStart = navigateStart;
-        emit navigateStartChanged(m_navigateStart);
+        emit navigateStartChanged();
     }
 }
 
@@ -252,7 +256,7 @@ void Cache::setNavigateEnd(int navigateEnd)
 {
     if (m_navigateEnd != navigateEnd) {
         m_navigateEnd = navigateEnd;
-        emit navigateEndChanged(m_navigateEnd);
+        emit navigateEndChanged();
     }
 }
 
@@ -260,7 +264,7 @@ void Cache::setSearchStart(int searchStart)
 {
     if (m_searchStart != searchStart) {
         m_searchStart = searchStart;
-        emit searchStartChanged(m_searchStart);
+        emit searchStartChanged();
     }
 }
 
@@ -268,7 +272,7 @@ void Cache::setSearchEnd(int searchEnd)
 {
     if (m_searchEnd != searchEnd) {
         m_searchEnd = searchEnd;
-        emit searchEndChanged(m_searchEnd);
+        emit searchEndChanged();
     }
 }
 

@@ -114,7 +114,6 @@ void PocketQueryDataSource::readWpt() {
     QXmlStreamAttributes attrs = this -> reader.attributes();
     c -> setLat(attrs.value("lat").toFloat());
     c -> setLon(attrs.value("lon").toFloat());
-    c -> setDistance(-1);
 
     while (this -> reader.readNextStartElement()) {
         // qDebug() << "        wpt/" << this -> reader.name() << "(" << this -> reader.tokenType() << ")";

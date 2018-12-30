@@ -30,6 +30,7 @@
 
 import QtQuick 2.2
 // import QtQuick.Layouts 1.1
+import QtPositioning 5.3
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import ".."
@@ -110,6 +111,15 @@ Page {
 
             delegate: BackgroundItem {
                 id: delegate
+
+                /*
+                 * Calculating these here rather than in the 'Label' object stops the ListView from
+                 * needlessly fetching the cache's lon and lat for every position update
+                 */
+                property var cachecoords: QtPositioning.coordinate(lat,lon)
+                property var hereiam: app.myPosition.coordinate
+                property real distance: hereiam.distanceTo(cachecoords)
+                property real bearing: hereiam.azimuthTo(cachecoords)
 
                 Column {
                     width: parent.width

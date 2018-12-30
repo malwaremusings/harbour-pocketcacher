@@ -41,7 +41,8 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
         case TerrainRole:
             ret = item -> terrain();
             break;
-        case DistanceRole:
+        case LatRole:
+#if 0
             /* calculate distance from our current location */
             /* return -1 if we can't get a valid distance   */
             if (m_position.isValid()) {
@@ -49,6 +50,11 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
             } else {
                 ret = -1;
             }
+#endif
+            ret = item -> lat();
+            break;
+        case LonRole:
+            ret = item -> lon();
             break;
         }
     }
@@ -93,15 +99,10 @@ QHash<int, QByteArray>CacheListModel::roleNames() const {
     roles[NameRole] = "name";
     roles[DifficultyRole] = "difficulty";
     roles[TerrainRole] = "terrain";
-    roles[DistanceRole] = "distance";
+    roles[LatRole] = "lat";
+    roles[LonRole] = "lon";
 
     return roles;
-}
-
-void CacheListModel::positionUpdated(const QGeoCoordinate &info)
-{
-    qDebug() << "CacheListModel::positionUpdated(" << info.latitude() << "," << info.longitude() << ")";
-    m_position = info;
 }
 
 /* custom methods */

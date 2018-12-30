@@ -8,8 +8,8 @@ Page {
     property var cache
     property var cachecoords: QtPositioning.coordinate(cache.lat,cache.lon)
     property var hereiam: app.myPosition.coordinate
-    property var distance: hereiam.distanceTo(cachecoords)
-    property var bearing: hereiam.azimuthTo(cachecoords)
+    property real distance: hereiam.distanceTo(cachecoords)
+    property real bearing: hereiam.azimuthTo(cachecoords)
 
     SilicaFlickable {
         // anchors {

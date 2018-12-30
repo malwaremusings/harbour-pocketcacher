@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QAbstractListModel>
 // #include <QQmlListProperty>
-#include <QGeoPositionInfo>
 #include <QDebug>
 #include "cache.h"
 
@@ -21,8 +20,8 @@ public:
         NameRole,
         DifficultyRole,
         TerrainRole,
-        DistanceRole,
-        BearingRole
+        LatRole,
+        LonRole
     };
 
     /*** Model/View Programming: Model Subclassing Reference ***
@@ -56,11 +55,6 @@ private:
 signals:
 
 public slots:
-    /* Ideally this should be a separate object and anything that needs to know
-     * our position queries it, when it needs to know, rather than the position
-     * object pushing the update info to any other module that needs to know!
-     */
-    void positionUpdated(const QGeoCoordinate &info);
 };
 
 #endif // CACHELISTMODEL_H

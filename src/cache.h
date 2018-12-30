@@ -2,6 +2,7 @@
 #define CACHE_H
 
 #include <QObject>
+#include <QGeoPositionInfo>
 #include <QDebug>
 
 class Cache : public QObject
@@ -22,8 +23,8 @@ class Cache : public QObject
     Q_PROPERTY(QString long_description READ long_description CONSTANT)
     Q_PROPERTY(QString encoded_hints READ encoded_hints CONSTANT)
     Q_PROPERTY(QString lastFound READ lastFound CONSTANT)
-    Q_PROPERTY(qreal distance READ distance WRITE setDistance NOTIFY distanceChanged)
-    Q_PROPERTY(qreal bearing READ bearing WRITE setBearing NOTIFY bearingChanged)
+    // Q_PROPERTY(qreal distance READ distance WRITE setDistance NOTIFY distanceChanged)
+    // Q_PROPERTY(qreal bearing READ bearing WRITE setBearing NOTIFY bearingChanged)
     Q_PROPERTY(int navigateStart READ navigateStart WRITE setNavigateStart NOTIFY navigateStartChanged)
     Q_PROPERTY(int navigateEnd READ navigateEnd WRITE setNavigateEnd NOTIFY navigateEndChanged)
     Q_PROPERTY(int searchStart READ searchStart WRITE setSearchStart NOTIFY searchStartChanged)
@@ -48,8 +49,8 @@ public:
     QString long_description() const;
     QString encoded_hints() const;
     QString lastFound() const;
-    qreal   distance() const;
-    qreal   bearing() const;
+    // qreal   distance() const;
+    // qreal   bearing() const;
     int     navigateStart() const;
     int     navigateEnd() const;
     int     searchStart() const;
@@ -69,8 +70,8 @@ public:
     void setLong_description(QString long_description);
     void setEncoded_hints(QString encoded_hints);
     void setLastFound(QString lastFound);
-    void setDistance(qreal distance);
-    void setBearing(qreal bearing);
+    // void setDistance(qreal distance);
+    // void setBearing(qreal bearing);
     void setNavigateStart(int navigateStart);
     void setNavigateEnd(int navigateEnd);
     void setSearchStart(int searchStart);
@@ -91,12 +92,12 @@ signals:
     // void long_descriptionChanged(QString long_description);
     // void encoded_hintsChanged(QString encoded_hints);
     // void lastFoundChanged(QString lastFound);
-    void distanceChanged(qreal distance);
-    void bearingChanged(qreal bearing);
-    void navigateStartChanged(int navigateStart);
-    void navigateEndChanged(int navigateEnd);
-    void searchStartChanged(int searchStart);
-    void searchEndChanged(int searchEnd);
+    // void distanceChanged();
+    // void bearingChanged();
+    void navigateStartChanged();
+    void navigateEndChanged();
+    void searchStartChanged();
+    void searchEndChanged();
 
 private:
     QString m_name;
@@ -113,8 +114,8 @@ private:
     QString m_long_description;
     QString m_encoded_hints;
     QString m_lastFound;
-    qreal   m_distance = -1;
-    qreal   m_bearing = -1;
+    // qreal   m_distance = -1;
+    // qreal   m_bearing = -1;
     int     m_navigateStart = 0;
     int     m_navigateEnd = 0;
     int     m_searchStart = 0;
