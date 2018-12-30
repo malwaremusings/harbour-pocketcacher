@@ -31,6 +31,7 @@
 import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
+import QtSensors 5.0
 import com.malwaremusings 0.1
 import "pages"
 
@@ -40,7 +41,7 @@ ApplicationWindow
     id: app
     property alias caches: caches
     property alias myPosition: posSource.position
-    property alias myDirection: posSource.direction
+    property real myDirection: (compass.direction != -999) ? compass.direction : posSource.direction
     property alias logbook: logbook
     //property alias cachemodel: caches
     //property alias allcaches: cache
@@ -98,6 +99,39 @@ ApplicationWindow
 
             previouslat = position.coordinate.latitude;
             previouslon = position.coordinate.longitude;
+        }
+    }
+
+    Compass {
+        id: compass
+
+        property real direction: -999
+
+        Component.onCompleted: {
+            if (connectedToBackend) {
+                console.debug("Compass is connected");
+                start();
+                compassTimer.start();
+            } else {
+                console.debug("Compass is unavailable");
+            }
+        }
+    }
+
+    /*
+     * Use a timer as the Compass sensor produces a large
+     * number of unecessary readings
+     */
+    Timer {
+        id: compassTimer
+
+        interval: 1000
+        running: false
+        triggeredOnStart: true
+        repeat: true
+        onTriggered: {
+            compass.direction = compass.reading.azimuth;
+            console.debug("compassTimer updating compass reading: " + compass.direction);
         }
     }
 

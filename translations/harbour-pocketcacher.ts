@@ -66,10 +66,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Last log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Navigation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -111,6 +107,10 @@
     </message>
     <message>
         <source>Sound to indicate distance and bearing to cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last found</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

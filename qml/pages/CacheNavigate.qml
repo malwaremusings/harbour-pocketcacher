@@ -103,9 +103,8 @@ Page {
             DetailItem {
                 width: parent.width
 
-                label: qsTr("Last log")
-                //value: qsTr(cache.last_found_log)
-                value: qsTr(cache.last_log)
+                label: qsTr("Last found")
+                value: (cache.lastFound) ? qsTr(cache.lastFound) : "[unknown]"
                 // horizontalAlignment: Text.AlignLeft
                 // wrapMode: Text.Wrap
             }

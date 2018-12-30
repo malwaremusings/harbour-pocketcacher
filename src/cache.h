@@ -2,7 +2,7 @@
 #define CACHE_H
 
 #include <QObject>
-#include <QGeoPositionInfo>
+#include <QGeoCoordinate>
 #include <QDebug>
 
 class Cache : public QObject
