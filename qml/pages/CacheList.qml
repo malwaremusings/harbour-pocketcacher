@@ -37,15 +37,15 @@ import ".."
 Page {
     id: pageCacheList
 
-    property alias filename: pocketquery.filename
+    // property alias filename: pocketquery.filename
 
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
-    PocketQuery {
-        id: pocketquery
-        filename: ""
-    }
+    // PocketQuery {
+    //     id: pocketquery
+    //     filename: ""
+    // }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -94,7 +94,7 @@ Page {
                 text: qsTr("No geocaches loaded")
                 hintText: qsTr("Load a pocket query")
 
-                state: (pocketquery.status == 2) ? qsTr("Loading") : ""
+                state: (app.pqds.status == 2) ? qsTr("Loading") : ""
                 states: [
                     State {
                         name: ""
@@ -164,9 +164,10 @@ Page {
 
                             Label {
                                 width: parent.width / 2
-                                text: distance + " m"
+                                text: Math.round(distance) + " m"
                                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                                 horizontalAlignment: Text.AlignRight
+                                visible: distance != -1
                             }
                         }
                     }
@@ -174,8 +175,9 @@ Page {
 
                 onClicked: {
                     console.debug("Clicked " + qsTr(name));
+                    console.debug("    " + index);
 
-                    pageStack.push(Qt.resolvedUrl("CacheDetails.qml"),{ cache: app.caches.get(index) });
+                    pageStack.push(Qt.resolvedUrl("CacheDetails.qml"),{ cache: listView.model.getCache(index) });
                 }
             }
             VerticalScrollDecorator {}
@@ -185,7 +187,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 size: BusyIndicatorSize.Large
-                running: pocketquery.status == 2   /* XmlListModel.Loading */
+                running: app.pqds.status === 2   /* XmlListModel.Loading */
             }
         }
     }
@@ -201,7 +203,9 @@ Page {
             title: "Select Pocket Query File"
             nameFilters: [ '*.gpx' ]
             onSelectedContentPropertiesChanged: {
-                pocketquery.filename = selectedContentProperties.filePath;
+                // pocketquery.filename = selectedContentProperties.filePath;
+                app.pqds.source = Qt.resolvedUrl(selectedContentProperties.filePath);
+                app.pqds.loadCaches();
             }
         }
     }

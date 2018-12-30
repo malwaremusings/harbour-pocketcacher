@@ -34,6 +34,8 @@
 
 #include <sailfishapp.h>
 #include "Beeper.h"
+#include "cachelistmodel.h"
+#include "pocketquerydatasource.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +50,9 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     qmlRegisterType<Beeper>("com.malwaremusings",0,1,"Beeper");
+    qmlRegisterType<Cache>("com.malwaremusings",0,1,"Cache");
+    qmlRegisterType<CacheListModel>("com.malwaremusings",0,1,"CacheListModel");
+    qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,1,"PocketQueryDataSource");
 
     return SailfishApp::main(argc, argv);
 }

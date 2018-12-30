@@ -90,7 +90,7 @@ Page {
             DetailItem {
                 x: Theme.horizontalPageMargin
                 label: qsTr("Loaded caches")
-                value: app.caches.count
+                value: app.caches.rowCount()
             }
 
             DetailItem {
