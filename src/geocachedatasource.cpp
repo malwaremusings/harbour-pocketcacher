@@ -5,6 +5,20 @@ GeocacheDataSource::GeocacheDataSource(QObject *parent) : QObject(parent)
 
 }
 
+qint8 GeocacheDataSource::status()
+{
+    return m_status;
+}
+
+void GeocacheDataSource::setStatus(qint8 status)
+{
+    if (m_status != status) {
+        m_status = status;
+        emit statusChanged();
+    }
+}
+
+#if 0
 Cache *GeocacheDataSource::getLastCache() {
     Cache *c = nullptr;
 
@@ -18,3 +32,4 @@ Cache *GeocacheDataSource::getLastCache() {
     qDebug() << "    returning \"" << c -> getName() << "\"";
     return c;
 }
+#endif

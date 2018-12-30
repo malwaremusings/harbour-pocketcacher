@@ -65,7 +65,7 @@ Item {
                     c.searchStart = 0;
                     c.searchEnd = 0;
 
-                    app.allcaches.push(c);
+                    app.caches.addCache(c);
                 }
 
                 app.cachemodel.refresh();

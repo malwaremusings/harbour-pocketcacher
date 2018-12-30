@@ -104,12 +104,12 @@ void PocketQueryDataSource::readCache(Cache *c) {
 }
 
 void PocketQueryDataSource::readWpt() {
-    Cache *c;
+    Cache *c = nullptr;
 
     Q_ASSERT(this -> reader.isStartElement() && this -> reader.name() == "wpt");
 
     c = new Cache();
-    QQmlEngine::setObjectOwnership(c,QQmlEngine::CppOwnership);
+    // QQmlEngine::setObjectOwnership(&c,QQmlEngine::CppOwnership);
 
     QXmlStreamAttributes attrs = this -> reader.attributes();
     c -> setLat(attrs.value("lat").toFloat());
@@ -183,11 +183,13 @@ bool PocketQueryDataSource::loadCaches()
     bool ret = false;
 
     qDebug() << "> PocketQueryDataSource::loadCaches()";
+    qDebug() << "      " << this -> source();
+    qDebug() << "      " << this -> source().isValid();
+    qDebug() << "      " << this -> source().isLocalFile();
 
-    if (this -> source.isValid() && this -> source.isLocalFile()) {
-        this -> status = 2;
-        emit statusChanged(this -> status);
-        this -> xmlfile = new QFile(this -> source.toLocalFile());
+    if (this -> source().isValid() && this -> source().isLocalFile()) {
+        this -> setStatus(2);
+        this -> xmlfile = new QFile(this -> source().toLocalFile());
 
         qDebug() << "StartElement == " << QXmlStreamReader::TokenType::StartElement;
         if (this->xmlfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -203,9 +205,8 @@ bool PocketQueryDataSource::loadCaches()
                 }
             }
         }
-        this -> status = 3;
-        // qDebug() << "    # items in model: " << model.size();
-        emit statusChanged(this -> status);
+        this -> setStatus(3);
+        // qDebug() << "    # items in model: " << model() -> size();
     } else {
         qDebug() << "Attempt to read unnamed PocketQuery";
     }

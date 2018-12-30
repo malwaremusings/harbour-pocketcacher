@@ -38,16 +38,22 @@ import "pages"
 ApplicationWindow
 {
     id: app
-    property alias caches: caches.caches
+    property alias caches: caches
     property alias myPosition: posSource.position
     property alias myDirection: posSource.direction
     property alias logbook: logbook
-    property alias cachemodel: caches
-    property alias allcaches: caches.allcaches
+    //property alias cachemodel: caches
+    //property alias allcaches: cache
+    property alias pqds: pqds
     property alias beeper: beeper
 
-    CacheModel {
+    CacheListModel {
         id: caches
+    }
+
+    PocketQueryDataSource {
+        id: pqds
+        model: caches
     }
 
     LogBookModel {
@@ -76,10 +82,12 @@ ApplicationWindow
             /* calculate direction if compass sensor is unavailable */
             if (position.directionValid) {
                 direction = position.direction;
+                console.debug("position direction: " + direction);
             } else {
                 if (previouslat != -999) {
                     var previouscoords = QtPositioning.coordinate(previouslat,previouslon);
                     direction = previouscoords.azimuthTo(position.coordinate);
+                    console.debug("calculated direction: " + direction);
                 } else {
                     direction = -999;
                 }
@@ -91,7 +99,8 @@ ApplicationWindow
             previouslat = position.coordinate.latitude;
             previouslon = position.coordinate.longitude;
 
-            caches.refresh_distances();
+            // caches.positionUpdated(position);
+            caches.positionUpdated(position.coordinate);
         }
     }
 

@@ -210,4 +210,11 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>PocketQuery is not a GPX file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

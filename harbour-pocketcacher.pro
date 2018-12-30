@@ -17,7 +17,11 @@ CONFIG += sailfishapp
 QT += location multimedia
 
 SOURCES += src/harbour-pocketcacher.cpp \
-    src/Beeper.cpp
+    src/Beeper.cpp \
+    src/cachelistmodel.cpp \
+    src/cache.cpp \
+    src/geocachedatasource.cpp \
+    src/pocketquerydatasource.cpp
 
 DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
@@ -29,18 +33,17 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     translations/*.ts \
     harbour-pocketcacher.desktop \
     qml/pages/CacheList.qml \
-    qml/PocketQuery.qml \
     qml/pages/PocketQueries.qml \
     qml/PocketQueryJavascript.js \
     qml/pages/CacheDetails.qml \
-    qml/CacheModel.qml \
     qml/pages/CacheMap.qml \
     qml/pages/CacheNavigate.qml \
     qml/pages/CacheLogger.qml \
     qml/pages/LogBookEntryDetails.qml \
     qml/pages/SaveFileDialog.qml \
     qml/harbour-pocketcacher.js \
-    qml/Database.qml
+    qml/Database.qml \
+    qml/PocketQuery.qml.dontuse
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -55,4 +58,8 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-pocketcacher-de.ts
 
 HEADERS += \
-    src/Beeper.h
+    src/Beeper.h \
+    src/cachelistmodel.h \
+    src/cache.h \
+    src/geocachedatasource.h \
+    src/pocketquerydatasource.h

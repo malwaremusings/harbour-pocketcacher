@@ -21,7 +21,6 @@ class PocketQueryDataSource : public GeocacheDataSource
     Q_OBJECT
     Q_PROPERTY(QString xmlnamespace READ getXmlNamespace WRITE setXmlNamespace NOTIFY xmlNamespaceChanged)
     Q_PROPERTY(int status READ getStatus NOTIFY statusChanged)
-    Q_PROPERTY(QUrl source READ getSource WRITE setSource NOTIFY sourceChanged)
 
     /* PocketQuery properties */
     Q_PROPERTY(QString name READ getName NOTIFY nameChanged)
@@ -32,10 +31,6 @@ public:
     ~PocketQueryDataSource();
 
     Q_INVOKABLE bool loadCaches();
-    QUrl getSource() const
-    {
-        return this -> source;
-    }
 
 private:
     QString xmlnamespace = nullptr;
@@ -47,7 +42,6 @@ private:
     QString name = nullptr;
     QString time = nullptr;
     bounds_t bounds;
-    QUrl source;
 
 signals:
     void xmlNamespaceChanged(QString xmlnamespace);
@@ -55,8 +49,6 @@ signals:
     void nameChanged(QString name);
     void timeChanged(QString time);
     // void boundsChanged(QGeoCoordinate min,QGeoCoordinate max);
-
-    void sourceChanged(QUrl source);
 
 public slots:
     void setXmlNamespace(QString xmlnamespace) { qDebug() << "setXmlNamespace(" << xmlnamespace << ")"; this -> xmlnamespace = xmlnamespace; }
@@ -73,14 +65,6 @@ public slots:
     void readCache(Cache *c);
     void readWpt();
     void readGpx();
-    void setSource(QUrl source)
-    {
-        if (this -> source == source)
-            return;
-
-        this -> source = source;
-        emit sourceChanged(this -> source);
-    }
 };
 
 #endif // POCKETQUERYDATASOURCE_H
