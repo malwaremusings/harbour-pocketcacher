@@ -21,7 +21,8 @@ SOURCES += src/harbour-pocketcacher.cpp \
     src/cachelistmodel.cpp \
     src/cache.cpp \
     src/geocachedatasource.cpp \
-    src/pocketquerydatasource.cpp
+    src/pocketquerydatasource.cpp \
+    src/cachesortfiltermodel.cpp
 
 DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
@@ -43,7 +44,8 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     qml/pages/SaveFileDialog.qml \
     qml/harbour-pocketcacher.js \
     qml/Database.qml \
-    qml/PocketQuery.qml.dontuse
+    qml/PocketQuery.qml.dontuse \
+    qml/pages/CacheSortDialog.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -62,4 +64,5 @@ HEADERS += \
     src/cachelistmodel.h \
     src/cache.h \
     src/geocachedatasource.h \
-    src/pocketquerydatasource.h
+    src/pocketquerydatasource.h \
+    src/cachesortfiltermodel.h

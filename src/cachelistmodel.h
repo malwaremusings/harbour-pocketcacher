@@ -23,6 +23,7 @@ public:
         LatRole,
         LonRole
     };
+    Q_ENUM(CacheRoles)
 
     /*** Model/View Programming: Model Subclassing Reference ***
      *   http://doc.qt.io/qt-5/model-view-programming.html#model-subclassing-reference
@@ -32,9 +33,11 @@ public:
     // QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
+#if 0
     /* for read/write models */
-    // bool setData(const QModelIndex &index, const QVariant &value, int role);
-    // bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role);
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role);
+#endif
 
     /***/
 
@@ -48,9 +51,8 @@ protected:
 
 private:
     QVector<Cache *> m_caches;
-    // QVector<> m_caches;
     // QGeoPositionInfo m_position;
-    QGeoCoordinate m_position;
+    // QGeoCoordinate m_position;
 
 signals:
 

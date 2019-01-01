@@ -4,12 +4,12 @@
 #include <QObject>
 #include <QUrl>
 #include "cache.h"
-#include "cachelistmodel.h"
+#include "cachesortfiltermodel.h"
 
 class GeocacheDataSource : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(CacheListModel * model READ model WRITE setModel NOTIFY modelChanged)
+    Q_PROPERTY(CacheSortFilterModel * model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(qint8 status READ status NOTIFY statusChanged)
         /* 1: Ready (XmlListModel.Ready)
@@ -20,8 +20,8 @@ public:
     explicit GeocacheDataSource(QObject *parent = nullptr);
     // GeocacheDataSource(CacheListModel m, QUrl source);
 
-    CacheListModel *model() { return this -> m_model; }
-    void setModel(CacheListModel *model) {
+    CacheSortFilterModel *model() { return this -> m_model; }
+    void setModel(CacheSortFilterModel *model) {
         qDebug() << "GeocacheDataSource::setModel(" << model << ")";
         this -> m_model = model;
         emit modelChanged();
@@ -50,7 +50,7 @@ public:
     // Cache *getLastCache();
 
 private:
-    CacheListModel *m_model;
+    CacheSortFilterModel *m_model;
     QUrl m_source;
     qint8 m_status;
 

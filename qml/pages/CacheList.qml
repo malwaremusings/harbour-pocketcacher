@@ -67,7 +67,11 @@ Page {
                 MenuItem {
                     text: qsTr("Sort")
                     onClicked: {
-                        app.cachemodel.refresh();
+                        var sortDialog = pageStack.push(Qt.resolvedUrl("CacheSortDialog.qml"),{ role: app.caches.sortRole });
+                        sortDialog.accepted.connect(function() {
+                            app.caches.sortRole = sortDialog.role;
+                            app.caches.startSort(0,sortDialog.order);
+                        });
                     }
                 }
 

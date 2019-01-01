@@ -19,12 +19,12 @@ typedef struct bounds_struct {
 class PocketQueryDataSource : public GeocacheDataSource
 {
     Q_OBJECT
-    Q_PROPERTY(QString xmlnamespace READ getXmlNamespace WRITE setXmlNamespace NOTIFY xmlNamespaceChanged)
-    Q_PROPERTY(int status READ getStatus NOTIFY statusChanged)
+    Q_PROPERTY(QString xmlNamespace READ xmlNamespace WRITE setXmlNamespace NOTIFY xmlNamespaceChanged)
+    Q_PROPERTY(int status READ status NOTIFY statusChanged)
 
     /* PocketQuery properties */
-    Q_PROPERTY(QString name READ getName NOTIFY nameChanged)
-    Q_PROPERTY(QString time READ getTime NOTIFY timeChanged)
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(QString time READ time NOTIFY timeChanged)
     // Q_PROPERTY(QVariant bounds READ getBounds NOTIFY boundsChanged)
 public:
     explicit PocketQueryDataSource(QObject *parent = nullptr);
@@ -33,38 +33,39 @@ public:
     Q_INVOKABLE bool loadCaches();
 
 private:
-    QString xmlnamespace = nullptr;
-    int     status = 0;
-    QFile   *xmlfile = nullptr;
+    QString m_xmlNamespace = nullptr;
+    int     m_status = 0;
+    QFile   *m_xmlfile = nullptr;
     QXmlStreamReader reader;
 
     /* PocketQuery properties */
-    QString name = nullptr;
-    QString time = nullptr;
-    bounds_t bounds;
-
-signals:
-    void xmlNamespaceChanged(QString xmlnamespace);
-    void statusChanged(int status);
-    void nameChanged(QString name);
-    void timeChanged(QString time);
-    // void boundsChanged(QGeoCoordinate min,QGeoCoordinate max);
-
-public slots:
-    void setXmlNamespace(QString xmlnamespace) { qDebug() << "setXmlNamespace(" << xmlnamespace << ")"; this -> xmlnamespace = xmlnamespace; }
-    QString getXmlNamespace() { qDebug() << "getXmlNamespace(): " << this -> xmlnamespace; return this -> xmlnamespace; }
-
-    int getStatus() { qDebug() << "getStatus(): " << this -> status; return this -> status; }
-
-    void setName(QString name) { qDebug() << "setName(" << name << ")"; this -> name = name; }
-    QString getName() { qDebug() << "getName(): " << this -> name; return this -> name; }
-    void setTime(QString time) { qDebug() << "setTime(" << time << ")"; this -> time = time; }
-    QString getTime() { qDebug() << "getTime(): " << this -> time; return this -> time; }
+    QString m_name = nullptr;
+    QString m_time = nullptr;
+    bounds_t m_bounds;
 
     void readLog(QString *logdata,QString *logtype);
     void readCache(Cache *c);
     void readWpt();
     void readGpx();
+
+signals:
+    void xmlNamespaceChanged();
+    void statusChanged(int status);
+    void nameChanged();
+    void timeChanged();
+    // void boundsChanged(QGeoCoordinate min,QGeoCoordinate max);
+
+public slots:
+    void setXmlNamespace(QString xmlNamespace);
+    QString xmlNamespace();
+
+    void setStatus(int status);
+    int status();
+
+    void setName(QString name);
+    QString name();
+    void setTime(QString time);
+    QString time();
 };
 
 #endif // POCKETQUERYDATASOURCE_H

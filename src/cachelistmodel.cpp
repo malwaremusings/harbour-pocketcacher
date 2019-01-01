@@ -12,7 +12,8 @@ CacheListModel::CacheListModel(QObject *parent) : QAbstractListModel(parent)
 Qt::ItemFlags CacheListModel::flags(const QModelIndex &index) const
 {
     /* OR Qt::ItemIsEditable if we want read/write model */
-    return QAbstractListModel::flags(index);
+    qDebug() << "CacheListModel::flags(index): " << QAbstractListModel::flags(index);
+    return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
 }
 #endif
 
@@ -22,7 +23,9 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
     QVariant ret = QVariant();
     const Cache    *item;
 
-    qDebug() << "CacheListModel::data(" << index << "," << role << ")";
+    QHash<int, QByteArray> roles = roleNames();
+    qDebug() << "CacheListModel::data(" << index << "," << role << roles[role] << ")";
+
     item = m_caches.at(index.row());
     if (item) {
         switch (role) {
@@ -42,15 +45,6 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
             ret = item -> terrain();
             break;
         case LatRole:
-#if 0
-            /* calculate distance from our current location */
-            /* return -1 if we can't get a valid distance   */
-            if (m_position.isValid()) {
-                ret = m_position.distanceTo(QGeoCoordinate(item -> lat(),item -> lon()));
-            } else {
-                ret = -1;
-            }
-#endif
             ret = item -> lat();
             break;
         case LonRole:
@@ -73,7 +67,6 @@ QVariant CacheListModel::headerData(int section, Qt::Orientation orientation, in
 int CacheListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-
     return m_caches.count();
 }
 
@@ -81,12 +74,32 @@ int CacheListModel::rowCount(const QModelIndex &parent) const
 /* for read/write models */
 bool CacheListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    QHash<int, QByteArray> roles = roleNames();
+
+    qDebug() << "CacheListModel::setData(" << index << "," << value << "," << role << roles[role];
+
+    bool ret = false;
+
     /* must emit dataChanged() signal after changing data */
+    if (index.isValid() && role == Qt::EditRole) {
+        // if (*(m_caches[index.row()]) != value.toString()) {
+        //     *(m_caches[index.row()]) = value.toString();
+        //     emit dataChanged(index, index, { Qt::EditRole, Qt::DisplayRole });
+
+        //     ret = true;
+        // }
+    }
+
+    return ret;
 }
 
 bool CacheListModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
 {
+    QHash<int, QByteArray> roles = roleNames();
 
+    qDebug() << "CacheListModel::setHeaderData(" << section << "," << orientation << "," << value << "," << role << roles[role];
+
+    return false;
 }
 #endif
 /***/
@@ -110,9 +123,11 @@ void CacheListModel::addCache(Cache *cache)
 {
     qDebug() << "> CacheListModel::addCache()";
     qDebug() << "    " << cache -> name();
+
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_caches << cache;
     endInsertRows();
+
     qDebug() << "< CacheListModel::addCache()";
 }
 

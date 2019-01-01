@@ -36,6 +36,7 @@
 #include "Beeper.h"
 #include "cachelistmodel.h"
 #include "pocketquerydatasource.h"
+#include "cachesortfiltermodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Cache>("com.malwaremusings",0,1,"Cache");
     qmlRegisterType<CacheListModel>("com.malwaremusings",0,1,"CacheListModel");
     qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,1,"PocketQueryDataSource");
+    qmlRegisterType<CacheSortFilterModel>("com.malwaremusings",0,1,"CacheSortFilterModel");
 
     return SailfishApp::main(argc, argv);
 }

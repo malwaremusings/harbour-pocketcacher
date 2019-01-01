@@ -165,8 +165,8 @@ void PocketQueryDataSource::readGpx() {
                 if (attrs[i].name() == "maxlon") maxlon = attrs[i].value().toFloat();
             }
 
-            this -> bounds.min = QGeoCoordinate(minlat,minlon);
-            this -> bounds.max = QGeoCoordinate(maxlat,maxlon);
+            this -> m_bounds.min = QGeoCoordinate(minlat,minlon);
+            this -> m_bounds.max = QGeoCoordinate(maxlat,maxlon);
 
             this -> reader.skipCurrentElement();
         } else if (this -> reader.name() == "wpt") {
@@ -183,16 +183,14 @@ bool PocketQueryDataSource::loadCaches()
 
     qDebug() << "> PocketQueryDataSource::loadCaches()";
     qDebug() << "      " << this -> source();
-    qDebug() << "      " << this -> source().isValid();
-    qDebug() << "      " << this -> source().isLocalFile();
 
     if (this -> source().isValid() && this -> source().isLocalFile()) {
         this -> setStatus(2);
-        this -> xmlfile = new QFile(this -> source().toLocalFile());
+        this -> m_xmlfile = new QFile(this -> source().toLocalFile());
 
         qDebug() << "StartElement == " << QXmlStreamReader::TokenType::StartElement;
-        if (this->xmlfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
-            this -> reader.setDevice(this -> xmlfile);
+        if (this -> m_xmlfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
+            this -> reader.setDevice(this -> m_xmlfile);
 
             if (this -> reader.readNextStartElement()) {
                 if (this -> reader.name() == "gpx") {
@@ -212,4 +210,65 @@ bool PocketQueryDataSource::loadCaches()
 
     qDebug() << "< PocketQueryDataSource::loadCaches()";
     return ret;
+}
+
+void PocketQueryDataSource::setXmlNamespace(QString xmlNamespace)
+{
+    qDebug() << "setXmlNamespace(" << xmlNamespace << ")";
+    if (m_xmlNamespace != xmlNamespace) {
+        m_xmlNamespace = xmlNamespace;
+        emit xmlNamespaceChanged();
+    }
+}
+
+QString PocketQueryDataSource::xmlNamespace()
+{
+    qDebug() << "getXmlNamespace(): " << m_xmlNamespace;
+    return m_xmlNamespace;
+}
+
+void PocketQueryDataSource::setStatus(int status)
+{
+    qDebug() << "setStatus(" << status << ")";
+    if (m_status != status) {
+        qDebug() << "    Changing status from " << m_status << " to " << status;
+        m_status = status;
+        emit statusChanged(m_status);
+    }
+}
+
+int PocketQueryDataSource::status()
+{
+    qDebug() << "getStatus(): " << m_status;
+    return m_status;
+}
+
+void PocketQueryDataSource::setName(QString name)
+{
+    qDebug() << "setName(" << name << ")";
+    if (m_name != name) {
+        m_name = name;
+        emit nameChanged();
+    }
+}
+
+QString PocketQueryDataSource::name()
+{
+    qDebug() << "getName(): " << m_name;
+    return m_name;
+}
+
+void PocketQueryDataSource::setTime(QString time)
+{
+    qDebug() << "setTime(" << time << ")";
+    if (m_time != time) {
+        m_time = time;
+        emit timeChanged();
+    }
+}
+
+QString PocketQueryDataSource::time()
+{
+    qDebug() << "getTime(): " << m_time;
+    return m_time;
 }

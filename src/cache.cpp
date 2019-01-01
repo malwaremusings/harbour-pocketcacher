@@ -2,7 +2,7 @@
 
 Cache::Cache(QObject *parent) : QObject(parent)
 {
-    qDebug() << "new Cache(): " << this;
+    qDebug() << "new Cache(" << parent << "): " << this;
 }
 
 Cache::~Cache()
@@ -79,18 +79,6 @@ QString Cache::lastFound() const
 {
     return m_lastFound;
 }
-
-#if 0
-qreal Cache::distance() const
-{
-    return m_distance;
-}
-
-qreal Cache::bearing() const
-{
-    return m_bearing;
-}
-#endif
 
 int Cache::navigateStart() const
 {
@@ -281,4 +269,3 @@ void Cache::setSearchEnd(int searchEnd)
 //
 //    if (cache) *this = *cache;
 //}
-

@@ -23,8 +23,8 @@ class Cache : public QObject
     Q_PROPERTY(QString long_description READ long_description CONSTANT)
     Q_PROPERTY(QString encoded_hints READ encoded_hints CONSTANT)
     Q_PROPERTY(QString lastFound READ lastFound CONSTANT)
-    // Q_PROPERTY(qreal distance READ distance WRITE setDistance NOTIFY distanceChanged)
-    // Q_PROPERTY(qreal bearing READ bearing WRITE setBearing NOTIFY bearingChanged)
+    // Q_PROPERTY(qreal distance READ distance NOTIFY distanceChanged)
+    // Q_PROPERTY(qreal bearing READ bearing NOTIFY bearingChanged)
     Q_PROPERTY(int navigateStart READ navigateStart WRITE setNavigateStart NOTIFY navigateStartChanged)
     Q_PROPERTY(int navigateEnd READ navigateEnd WRITE setNavigateEnd NOTIFY navigateEndChanged)
     Q_PROPERTY(int searchStart READ searchStart WRITE setSearchStart NOTIFY searchStartChanged)
@@ -50,7 +50,7 @@ public:
     QString encoded_hints() const;
     QString lastFound() const;
     // qreal   distance() const;
-    // qreal   bearing() const;
+    // qreal   bearing();
     int     navigateStart() const;
     int     navigateEnd() const;
     int     searchStart() const;

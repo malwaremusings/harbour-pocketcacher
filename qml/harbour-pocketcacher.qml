@@ -48,7 +48,7 @@ ApplicationWindow
     property alias pqds: pqds
     property alias beeper: beeper
 
-    CacheListModel {
+    CacheSortFilterModel {
         id: caches
     }
 
@@ -69,7 +69,7 @@ ApplicationWindow
 
     PositionSource {
         id: posSource
-        updateInterval: 1000
+        updateInterval: 0
         active: true
 
         property double previouslat: -999
@@ -88,7 +88,6 @@ ApplicationWindow
                 if (previouslat != -999) {
                     var previouscoords = QtPositioning.coordinate(previouslat,previouslon);
                     direction = previouscoords.azimuthTo(position.coordinate);
-                    console.debug("calculated direction: " + direction);
                 } else {
                     direction = -999;
                 }
@@ -131,7 +130,6 @@ ApplicationWindow
         repeat: true
         onTriggered: {
             compass.direction = compass.reading.azimuth;
-            console.debug("compassTimer updating compass reading: " + compass.direction);
         }
     }
 
