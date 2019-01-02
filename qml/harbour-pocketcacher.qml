@@ -55,6 +55,10 @@ ApplicationWindow
     PocketQueryDataSource {
         id: pqds
         model: caches
+
+        onSourceChanged: {
+            loadCaches();
+        }
     }
 
     LogBookModel {

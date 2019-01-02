@@ -9,14 +9,20 @@
 class GeocacheDataSource : public QObject
 {
     Q_OBJECT
+
     Q_PROPERTY(CacheSortFilterModel * model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
-    Q_PROPERTY(qint8 status READ status NOTIFY statusChanged)
-        /* 1: Ready (XmlListModel.Ready)
-         * 2: Loading (XmlListModel.Loading)
-         */
+    Q_PROPERTY(Status status READ status NOTIFY statusChanged)
 
 public:
+    enum Status {
+        Null = 0,   /* no data loaded       */
+        Ready,      /* data loaded          */
+        Loading,    /* data loading         */
+        Error       /* error loading data   */
+    };
+    Q_ENUM(Status)
+
     explicit GeocacheDataSource(QObject *parent = nullptr);
     // GeocacheDataSource(CacheListModel m, QUrl source);
 
@@ -36,8 +42,8 @@ public:
         }
     }
 
-    qint8 status();
-    void setStatus(qint8 status);
+    Status status();
+    void setStatus(Status status);
 
     /*
      * load the caches in to the 'caches' QVector
@@ -51,8 +57,8 @@ public:
 
 private:
     CacheSortFilterModel *m_model;
+    Status m_status = Null;
     QUrl m_source;
-    qint8 m_status;
 
 protected:
     void addCache(Cache *cache) {

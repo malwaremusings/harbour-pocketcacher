@@ -31,6 +31,14 @@
 <context>
     <name>CacheList</name>
     <message>
+        <source>Geocaches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Show map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39,23 +47,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Geocaches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No geocaches loaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Load a pocket query</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

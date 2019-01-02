@@ -184,9 +184,9 @@ bool PocketQueryDataSource::loadCaches()
     qDebug() << "> PocketQueryDataSource::loadCaches()";
     qDebug() << "      " << this -> source();
 
-    if (this -> source().isValid() && this -> source().isLocalFile()) {
-        this -> setStatus(2);
-        this -> m_xmlfile = new QFile(this -> source().toLocalFile());
+    if (source().isValid() && source().isLocalFile()) {
+        setStatus(Loading);
+        m_xmlfile = new QFile(source().toLocalFile());
 
         qDebug() << "StartElement == " << QXmlStreamReader::TokenType::StartElement;
         if (this -> m_xmlfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -202,11 +202,12 @@ bool PocketQueryDataSource::loadCaches()
                 }
             }
         }
-        this -> setStatus(3);
         // qDebug() << "    # items in model: " << model() -> size();
     } else {
         qDebug() << "Attempt to read unnamed PocketQuery";
     }
+
+    setStatus(ret ? Ready : Error);
 
     qDebug() << "< PocketQueryDataSource::loadCaches()";
     return ret;
@@ -225,22 +226,6 @@ QString PocketQueryDataSource::xmlNamespace()
 {
     qDebug() << "getXmlNamespace(): " << m_xmlNamespace;
     return m_xmlNamespace;
-}
-
-void PocketQueryDataSource::setStatus(int status)
-{
-    qDebug() << "setStatus(" << status << ")";
-    if (m_status != status) {
-        qDebug() << "    Changing status from " << m_status << " to " << status;
-        m_status = status;
-        emit statusChanged(m_status);
-    }
-}
-
-int PocketQueryDataSource::status()
-{
-    qDebug() << "getStatus(): " << m_status;
-    return m_status;
 }
 
 void PocketQueryDataSource::setName(QString name)

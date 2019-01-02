@@ -5,12 +5,12 @@ GeocacheDataSource::GeocacheDataSource(QObject *parent) : QObject(parent)
 
 }
 
-qint8 GeocacheDataSource::status()
+GeocacheDataSource::Status GeocacheDataSource::status()
 {
     return m_status;
 }
 
-void GeocacheDataSource::setStatus(qint8 status)
+void GeocacheDataSource::setStatus(GeocacheDataSource::Status status)
 {
     if (m_status != status) {
         m_status = status;

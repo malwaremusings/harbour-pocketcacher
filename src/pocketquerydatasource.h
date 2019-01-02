@@ -20,7 +20,6 @@ class PocketQueryDataSource : public GeocacheDataSource
 {
     Q_OBJECT
     Q_PROPERTY(QString xmlNamespace READ xmlNamespace WRITE setXmlNamespace NOTIFY xmlNamespaceChanged)
-    Q_PROPERTY(int status READ status NOTIFY statusChanged)
 
     /* PocketQuery properties */
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
@@ -34,7 +33,6 @@ public:
 
 private:
     QString m_xmlNamespace = nullptr;
-    int     m_status = 0;
     QFile   *m_xmlfile = nullptr;
     QXmlStreamReader reader;
 
@@ -50,7 +48,6 @@ private:
 
 signals:
     void xmlNamespaceChanged();
-    void statusChanged(int status);
     void nameChanged();
     void timeChanged();
     // void boundsChanged(QGeoCoordinate min,QGeoCoordinate max);
@@ -58,9 +55,6 @@ signals:
 public slots:
     void setXmlNamespace(QString xmlNamespace);
     QString xmlNamespace();
-
-    void setStatus(int status);
-    int status();
 
     void setName(QString name);
     QString name();

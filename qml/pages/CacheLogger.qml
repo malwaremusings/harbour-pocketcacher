@@ -6,10 +6,6 @@ Dialog {
     id: dialogCacheLogger
 
     property var cache
-    property int date
-    property alias type: comboLogType.value
-    property alias finder: tfieldFinder.text
-    property alias text: tareaText.text
 
     SilicaFlickable {
         anchors.fill: parent
@@ -44,70 +40,45 @@ Dialog {
                 }
             }
 
-            Row {
-                id: rowDateTime
+            Grid {
+                id: gridDateTime
+
+                columns: 2
+                rows: 2
 
                 width: parent.width
                 spacing: Theme.paddingMedium
-                property date currentTime: new Date()
 
-                Button {
-                    id: buttonDate
+                Label {
+                    id: labelDate
 
-                    property int day: rowDateTime.currentTime.getDate()
-                    property int month: rowDateTime.currentTime.getMonth()
-                    property int year: rowDateTime.currentTime.getYear()
-
-                    width: Theme.buttonWidthSmall
-
-                    text: qsTr((rowDateTime.currentTime.getYear() + 1900) + "-" + ("0" + (rowDateTime.currentTime.getMonth() + 1)).substr(-2) + "-" + ("0" + rowDateTime.currentTime.getDate()).substr(-2))
-
-                    onClicked: {
-                        var dialog = pageStack.push(pickerDate,{ date: rowDateTime.currentTime });
-
-                        dialog.accepted.connect(function() {
-                            buttonDate.text = qsTr(dialog.dateText);
-                            buttonDate.day = dialog.day;
-                            buttonDate.month = dialog.month;
-                            buttonDate.year = dialog.year;
-                        });
-                    }
-
-                    Component {
-                        id: pickerDate
-
-                        DatePickerDialog { }
-                    }
+                    width: parent.width / 2
+                    text: pickerDate.dateText
+                    horizontalAlignment: Text.AlignHCenter
                 }
 
-                Button {
-                    id: buttonTime
+                Label {
+                    id: labelTime
 
-                    property int hour: rowDateTime.currentTime.getHours()
-                    property int minute: rowDateTime.currentTime.getMinutes()
+                    width: parent.width / 2
+                    text: pickerTime.timeText
+                    horizontalAlignment: Text.AlignHCenter
+                }
 
-                    width: Theme.buttonWidthSmall
-                    text: qsTr(rowDateTime.currentTime.getHours() + ":" + rowDateTime.currentTime.getMinutes())
+                DatePicker {
+                    id: pickerDate
 
-                    onClicked: {
-                        var dialog = pageStack.push(pickerTime,{
-                                                        hour: rowDateTime.currentTime.getHours(),
-                                                        minute: rowDateTime.currentTime.getMinutes(),
-                                                        hourMode: DateTime.TwentyFourHours
-                                                    });
+                    width: parent.width / 2
+                }
 
-                        dialog.accepted.connect(function() {
-                            buttonTime.text = qsTr(dialog.timeText);
-                            buttonTime.hour = dialog.hour;
-                            buttonTime.minute = dialog.minute;
-                        });
-                    }
+                TimePicker {
+                    id: pickerTime
 
-                    Component {
-                        id: pickerTime
+                    property var nowish: new Date();
 
-                        TimePickerDialog { }
-                    }
+                    width: parent.width / 2
+                    hour: nowish.getHours()
+                    minute: nowish.getMinutes()
                 }
             }
 
@@ -115,7 +86,7 @@ Dialog {
                 id: tfieldFinder
 
                 width: parent.width
-                placeholderText: "Your Geocaching name -- currently unused"
+                placeholderText: "Your Geocaching name"
                 label: "Username"
             }
 
@@ -123,7 +94,7 @@ Dialog {
                 id: tareaText
 
                 width: parent.width
-                focus: true
+                focus: false
                 placeholderText: "Share your story. Try not to leave any spoilers!"
                 label: "Log entry"
             }
@@ -138,11 +109,12 @@ Dialog {
          * https://doc.qt.io/qt-5/qml-qtqml-date.html
          */
 
-        var datetime = new Date(buttonDate.year,buttonDate.month,buttonDate.day,buttonTime.hour,buttonTime.minute);
-        var d = (buttonDate.year + 1900) + "-" + ("0" + (buttonDate.month + 1)).substr(-2) + "-" + ("0" + buttonDate.day).substr(-2);
+        var datetime = new Date(pickerDate.year,pickerDate.month - 1,pickerDate.day,pickerTime.hour,pickerTime.minute);
+        var dateStr = datetime.toISOString().substring(0,10);
+        var timeStr = datetime.toTimeString().substring(0,5);
 
         /* should check for a valid db object first */
-        app.logbook.add({"name": cache.name,"timestamp": datetime.valueOf(),"date": d,"time": buttonTime.text,"type": type,"finder": finder,"text": text});
+        app.logbook.add({"name": cache.name,"timestamp": datetime.valueOf(),"date": dateStr,"time": timeStr,"type": comboLogType.value,"finder": tfieldFinder.text,"text": tareaText.text});
         // app.logbook.logentries.append({"name": cache.name,"timestamp": datetime.valueOf(),"date": d,"time": timestr,"type": type,"finder": finder,"text": text});
         console.debug("< CacheLogger.qml::onAccepted()");
     }

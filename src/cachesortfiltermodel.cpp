@@ -13,6 +13,7 @@ void CacheSortFilterModel::addCache(Cache *cache)
 {
     qDebug() << "> CacheSortFilterModel::addCache(" << cache -> name() << ")";
     m_model -> addCache(cache);
+    emit loadedCountChanged();
     qDebug() << "< CacheSortFilterModel::addCache(" << cache -> name() << ")";
 }
 
@@ -36,4 +37,9 @@ int CacheSortFilterModel::getSortColumn()
 void CacheSortFilterModel::stopSort()
 {
     sort(-1);
+}
+
+int CacheSortFilterModel::loadedCount()
+{
+    return m_model -> rowCount();
 }

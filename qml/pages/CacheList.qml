@@ -33,6 +33,7 @@ import QtQuick 2.2
 import QtPositioning 5.3
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
+// import com.malwaremusings 0.1    /* for PocketQueryDataSource enum Status */
 import ".."
 
 Page {
@@ -95,22 +96,22 @@ Page {
             ViewPlaceholder {
                 id: placeholder
 
-                enabled: (listView.count == 0)
+                enabled: (listView.count === 0)
                 text: qsTr("No geocaches loaded")
                 hintText: qsTr("Load a pocket query")
 
-                state: (app.pqds.status == 2) ? qsTr("Loading") : ""
-                states: [
-                    State {
-                        name: ""
-                        PropertyChanges { target: placeholder; text: "No geocaches loaded"; hintText: "Load a pocket query" }
-                        },
+                // state: (app.pqds.status === PocketQueryDataSource.Loading) ? qsTr("Loading") : ""
+                // states: [
+                //     State {
+                //         name: ""
+                //         PropertyChanges { target: placeholder; text: "No geocaches loaded"; hintText: "Load a pocket query" }
+                //         },
 
-                    State {
-                        name: "Loading"
-                        PropertyChanges { target: placeholder; text: "Loading geocaches"; hintText: "" }
-                    }
-                ]
+                //     State {
+                //         name: "Loading"
+                //         PropertyChanges { target: placeholder; text: "Loading geocaches"; hintText: "" }
+                //     }
+                // ]
             }
 
             delegate: BackgroundItem {
@@ -124,6 +125,8 @@ Page {
                 property var hereiam: app.myPosition.coordinate
                 property real distance: hereiam.distanceTo(cachecoords)
                 property real bearing: hereiam.azimuthTo(cachecoords)
+
+                // visible: app.pqds.status !== PocketQueryDataSource.Loading
 
                 Column {
                     width: parent.width
@@ -196,13 +199,13 @@ Page {
             }
             VerticalScrollDecorator {}
 
-            BusyIndicator {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+            // BusyIndicator {
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.horizontalCenter: parent.horizontalCenter
 
-                size: BusyIndicatorSize.Large
-                running: app.pqds.status === 2   /* XmlListModel.Loading */
-            }
+            //     size: BusyIndicatorSize.Large
+            //     running: app.pqds.status === PocketQueryDataSource.Loading
+            // }
         }
     }
 
@@ -219,7 +222,7 @@ Page {
             onSelectedContentPropertiesChanged: {
                 // pocketquery.filename = selectedContentProperties.filePath;
                 app.pqds.source = Qt.resolvedUrl(selectedContentProperties.filePath);
-                app.pqds.loadCaches();
+                // app.pqds.loadCaches();
             }
         }
     }
