@@ -23,8 +23,8 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
     QVariant ret = QVariant();
     const Cache    *item;
 
-    QHash<int, QByteArray> roles = roleNames();
-    qDebug() << "CacheListModel::data(" << index << "," << role << roles[role] << ")";
+    // QHash<int, QByteArray> roles = roleNames();
+    // qDebug() << "CacheListModel::data(" << index << "," << role << roles[role] << ")";
 
     item = m_caches.at(index.row());
     if (item) {
@@ -38,17 +38,32 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
         case NameRole:
             ret = item -> name();
             break;
+        case OwnerRole:
+            ret = item -> owner();
+            break;
         case DifficultyRole:
             ret = item -> difficulty();
             break;
         case TerrainRole:
             ret = item -> terrain();
             break;
+        case ContainerRole:
+            ret = item -> container();
+            break;
+        case LastFoundRole:
+            ret = item -> lastFound();
+            break;
+        case TimeRole:
+            ret = item -> time();
+            break;
         case LatRole:
             ret = item -> lat();
             break;
         case LonRole:
             ret = item -> lon();
+            break;
+        case ColourRole:
+            ret = item -> colour();
             break;
         }
     }
@@ -110,10 +125,15 @@ QHash<int, QByteArray>CacheListModel::roleNames() const {
     roles[GsNameRole] = "gsname";
     roles[TypeRole] = "type";
     roles[NameRole] = "name";
+    roles[OwnerRole] = "owner";
     roles[DifficultyRole] = "difficulty";
     roles[TerrainRole] = "terrain";
+    roles[ContainerRole] = "container";
+    roles[LastFoundRole] = "lastFound";
+    roles[TimeRole] = "time";
     roles[LatRole] = "lat";
     roles[LonRole] = "lon";
+    roles[ColourRole] = "colour";
 
     return roles;
 }

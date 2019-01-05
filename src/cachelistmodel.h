@@ -18,10 +18,15 @@ public:
         GsNameRole = Qt::UserRole + 1,
         TypeRole,
         NameRole,
+        OwnerRole,
         DifficultyRole,
         TerrainRole,
+        ContainerRole,
+        LastFoundRole,
+        TimeRole,
         LatRole,
-        LonRole
+        LonRole,
+        ColourRole
     };
     Q_ENUM(CacheRoles)
 

@@ -50,12 +50,14 @@ Page {
                 center: QtPositioning.coordinate(lat,lon)
                 radius: 10
                 border.width: 3
-                color: 'red'
+                color: colour
 
                 MouseArea {
                     anchors.fill: parent
 
-                    onClicked: console.debug("Map click on " + name);
+                    onClicked: {
+                        console.debug("Map click on " + name);
+                    }
                 }
             }
         }

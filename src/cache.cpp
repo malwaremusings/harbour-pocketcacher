@@ -7,7 +7,7 @@ Cache::Cache(QObject *parent) : QObject(parent)
 
 Cache::~Cache()
 {
-    qDebug() << "[D] Cache destructor called for " << this;
+    qDebug() << "[D] Cache destructor called for " << this << ": " << this -> m_name;
 }
 
 QString Cache::name() const
@@ -100,11 +100,15 @@ int Cache::searchEnd() const
     return m_searchEnd;
 }
 
+QString Cache::colour() const
+{
+    return colours[type()];
+}
+
 void Cache::setName(QString name)
 {
     if (m_name != name) {
         m_name = name;
-        qDebug() << "Cache(" << this << ")::setName(" << m_name << ")";
         // emit nameChanged(m_name);
     }
 }
@@ -113,7 +117,6 @@ void Cache::setGsname(QString gsname)
 {
     if (m_gsname != gsname) {
         m_gsname = gsname;
-        qDebug() << "Cache(" << this << ")::setGsname(" << m_gsname << ")";
         // emit gsnameChanged(m_gsname);
     }
 }

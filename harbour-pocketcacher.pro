@@ -45,7 +45,7 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     qml/harbour-pocketcacher.js \
     qml/Database.qml \
     qml/PocketQuery.qml.dontuse \
-    qml/pages/CacheSortDialog.qml
+    qml/pages/CacheListOptionsDialog.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 

@@ -50,6 +50,28 @@ ApplicationWindow
 
     CacheSortFilterModel {
         id: caches
+        property bool sortEnabled
+        property int  sortOrder
+
+        property bool filterEnabled
+
+        /* I suspect case sensitive sorting would confuse most people! */
+        sortCaseSensitivity: Qt.CaseInsensitive
+
+        onSortEnabledChanged: {
+            console.debug("CacheSortFilterModelQML onSortEnabledChanged(): " + sortEnabled);
+            startSort(sortEnabled ? 0 : -1,sortOrder);
+        }
+
+        onFilterEnabledChanged: {
+            console.debug("CacheSortFilterModelQML onFilterEnabledChanged(): " + filterEnabled);
+
+            /*
+             * do we need to disable filtering?
+             * note that it is enabled by setting the filterRegExp string when the dialog box is accepted
+             */
+            if (!filterEnabled) filterRegExp = new RegExp("(?:)");  /* this is the regexp that filterRegExp is initialised with */
+        }
     }
 
     PocketQueryDataSource {

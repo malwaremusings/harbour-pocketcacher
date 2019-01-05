@@ -39,6 +39,10 @@ import ".."
 Page {
     id: pageCacheList
 
+    property bool groupEnabled
+    property string groupProperty
+    property int groupCriteria
+
     // property alias filename: pocketquery.filename
 
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
@@ -64,14 +68,37 @@ Page {
             }
             spacing: 2
 
+            section.property: groupProperty
+            section.criteria: groupCriteria
+            section.delegate: listSectionHeader
+
             PullDownMenu {
                 MenuItem {
-                    text: qsTr("Sort")
+                    text: qsTr("Options")
                     onClicked: {
-                        var sortDialog = pageStack.push(Qt.resolvedUrl("CacheSortDialog.qml"),{ role: app.caches.sortRole });
-                        sortDialog.accepted.connect(function() {
-                            app.caches.sortRole = sortDialog.role;
-                            app.caches.startSort(0,sortDialog.order);
+                        var optionsDialog = pageStack.push(Qt.resolvedUrl("CacheListOptionsDialog.qml"));
+                        optionsDialog.accepted.connect(function() {
+                            groupEnabled = optionsDialog.groupEnabled;
+                            if (groupEnabled) {
+                                groupProperty = optionsDialog.groupProperty;
+                                groupCriteria = optionsDialog.groupCriteria;
+                            } else {
+                                listView.section.property = "";
+                            }
+
+                            if (optionsDialog.sortEnabled) {
+                                app.caches.sortRole = optionsDialog.sortRole;
+                                app.caches.sortOrder = optionsDialog.sortOrder;
+                                app.caches.sortEnabled = optionsDialog.sortEnabled; /* will initiate a sort */
+                            }
+                            app.caches.sortEnabled = optionsDialog.sortEnabled;
+
+                            if (optionsDialog.filterEnabled) {
+                                app.caches.filterRole = optionsDialog.filterRole;
+                                app.caches.filterRegExp = new RegExp(optionsDialog.filterString);
+                                app.caches.filterCaseSensitivity = optionsDialog.filterCaseSensitivity;
+                            }
+                            app.caches.filterEnabled = optionsDialog.filterEnabled;
                         });
                     }
                 }
@@ -225,5 +252,14 @@ Page {
                 // app.pqds.loadCaches();
             }
         }
+    }
+
+    Component {
+        id: listSectionHeader
+
+        SectionHeader {
+            text: section
+        }
+
     }
 }

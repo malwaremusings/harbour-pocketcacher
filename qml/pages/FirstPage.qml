@@ -89,6 +89,12 @@ Page {
 
             DetailItem {
                 x: Theme.horizontalPageMargin
+                label: qsTr("Build time")
+                value: Build
+            }
+
+            DetailItem {
+                x: Theme.horizontalPageMargin
                 label: qsTr("Loaded caches")
                 value: app.caches.loadedCount
             }

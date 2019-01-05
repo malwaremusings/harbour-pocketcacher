@@ -29,6 +29,7 @@ class Cache : public QObject
     Q_PROPERTY(int navigateEnd READ navigateEnd WRITE setNavigateEnd NOTIFY navigateEndChanged)
     Q_PROPERTY(int searchStart READ searchStart WRITE setSearchStart NOTIFY searchStartChanged)
     Q_PROPERTY(int searchEnd READ searchEnd WRITE setSearchEnd NOTIFY searchEndChanged)
+    Q_PROPERTY(QString colour READ colour)
 
 public:
     explicit Cache(QObject *parent = nullptr);
@@ -55,6 +56,7 @@ public:
     int     navigateEnd() const;
     int     searchStart() const;
     int     searchEnd() const;
+    QString  colour() const;
 
     void setName(QString name);
     void setGsname(QString gsname);
@@ -120,6 +122,16 @@ private:
     int     m_navigateEnd = 0;
     int     m_searchStart = 0;
     int     m_searchEnd = 0;
+    QHash<QString,QString> colours = {
+        {"Earthcache", "light green"},         /* blue/green/yellow */
+        {"Event Cache", "orange"},
+        {"Letterbox Hybrid", "dark red"},   /* blue */
+        {"Multi-cache", "yellow"},
+        {"Traditional Cache", "dark green"},
+        {"Unknown Cache", "dark blue"},
+        {"Virtual Cache", "light blue"},
+        {"Wherigo Cache", "magenta"},      /* blue/white */
+    };
 
 public slots:
 };

@@ -35,10 +35,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -52,6 +48,10 @@
     </message>
     <message>
         <source>Load a pocket query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -169,6 +169,10 @@
     </message>
     <message>
         <source>Logbook entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Build time</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -50,11 +50,25 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
+    // See https://sailfishos.org/wiki/Tutorial_-_Combining_C%2B%2B_with_QML
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc,argv));
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
+    view -> rootContext() -> setContextProperty("Build",QString(__DATE__ "T" __TIME__));
+
+    /* The APP_VERSION and APP_BUILDNUM constants are defined in the .pro file using 'DEFINES' */
+    /* See https://github.com/amarchen/helloworld-pro-sailfish/commit/a9ae28197267fb6f94484e9e27a4bbcf7abaaf16#diff-b820e0828543b1da522ff0ab3dac6c75 */
+    // view -> rootContext() -> setContextProperty("appVersion",APP_VERSION);
+    // view -> rootContext() -> setContextProperty("appBuildNum",APP_BUILDNUM);
+
     qmlRegisterType<Beeper>("com.malwaremusings",0,1,"Beeper");
     qmlRegisterType<Cache>("com.malwaremusings",0,1,"Cache");
     qmlRegisterType<CacheListModel>("com.malwaremusings",0,1,"CacheListModel");
     qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,1,"PocketQueryDataSource");
     qmlRegisterType<CacheSortFilterModel>("com.malwaremusings",0,1,"CacheSortFilterModel");
 
-    return SailfishApp::main(argc, argv);
+    view -> setSource(SailfishApp::pathTo("qml/harbour-pocketcacher.qml"));
+    view -> show();
+
+    return app -> exec();
+    // return SailfishApp::main(argc, argv);
 }

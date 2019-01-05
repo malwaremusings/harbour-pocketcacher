@@ -9,7 +9,7 @@ PocketQueryDataSource::PocketQueryDataSource(QObject *parent) : GeocacheDataSour
 
 PocketQueryDataSource::~PocketQueryDataSource()
 {
-    qDebug() << "[D] PocketQueryDataSource() destuctor called for " << this;
+    qDebug() << "[D] PocketQueryDataSource() destructor called for " << this;
 }
 
 void PocketQueryDataSource::readLog(QString *logdate,QString *logtype) {
@@ -109,7 +109,14 @@ void PocketQueryDataSource::readWpt() {
     Q_ASSERT(this -> reader.isStartElement() && this -> reader.name() == "wpt");
 
     c = new Cache();
-    // QQmlEngine::setObjectOwnership(&c,QQmlEngine::CppOwnership);
+
+    /*
+     * Stop Caches from being destroyed after viewing them.
+     * This seems like a kludge -- i wonder if it is the correct way to solve
+     * this problem or if i should be using something like QSharedPointer<>
+     * or redesiging the code.
+     */
+    QQmlEngine::setObjectOwnership(c,QQmlEngine::CppOwnership);
 
     QXmlStreamAttributes attrs = this -> reader.attributes();
     c -> setLat(attrs.value("lat").toFloat());
