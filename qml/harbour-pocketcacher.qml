@@ -32,6 +32,8 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import QtPositioning 5.3
 import QtSensors 5.0
+// import Nemo.Notifications 1.0    /* for placing messages on status/notifications page                      */
+                                    /* see https://sailfishos.org/develop/docs/nemo-qml-plugin-notifications/ */
 import com.malwaremusings 0.1
 import "pages"
 
@@ -95,7 +97,7 @@ ApplicationWindow
 
     PositionSource {
         id: posSource
-        updateInterval: 0
+        updateInterval: 0   /* changing this doesn't seem to do anything! */
         active: true
 
         property double previouslat: -999
@@ -124,6 +126,8 @@ ApplicationWindow
 
             previouslat = position.coordinate.latitude;
             previouslon = position.coordinate.longitude;
+
+            caches.positionUpdated(position.coordinate);
         }
     }
 

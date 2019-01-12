@@ -4,12 +4,15 @@
 #include <QObject>
 #include <QAbstractListModel>
 // #include <QQmlListProperty>
+#include <QDateTime>
 #include <QDebug>
 #include "cache.h"
 
 class CacheListModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    Q_PROPERTY(int recalcInterval READ recalcInterval WRITE setRecalcInterval)
 
 public:
     explicit CacheListModel(QObject *parent = nullptr);
@@ -26,7 +29,9 @@ public:
         TimeRole,
         LatRole,
         LonRole,
-        ColourRole
+        ColourRole,
+        DistanceRole,
+        BearingRole
     };
     Q_ENUM(CacheRoles)
 
@@ -46,6 +51,9 @@ public:
 
     /***/
 
+    int recalcInterval();
+    void setRecalcInterval(int recalcInterval);
+
     // QHash<int,QByteArray> roleNames() const;
 
     Q_INVOKABLE void addCache(Cache *cache);
@@ -56,12 +64,15 @@ protected:
 
 private:
     QVector<Cache *> m_caches;
-    // QGeoPositionInfo m_position;
-    // QGeoCoordinate m_position;
+    QGeoCoordinate m_position;
+    qint64 m_position_timestamp = 0;
+    int m_recalcInterval = 0;
 
 signals:
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
 
 public slots:
+    void positionUpdated(QGeoCoordinate coordinate);
 };
 
 #endif // CACHELISTMODEL_H

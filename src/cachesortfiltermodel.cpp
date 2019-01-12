@@ -39,7 +39,17 @@ void CacheSortFilterModel::stopSort()
     sort(-1);
 }
 
+void CacheSortFilterModel::setRecalcInterval(int recalcInterval)
+{
+    m_model -> setRecalcInterval(recalcInterval);
+}
+
 int CacheSortFilterModel::loadedCount()
 {
     return m_model -> rowCount();
+}
+
+void CacheSortFilterModel::positionUpdated(QGeoCoordinate coordinate)
+{
+    m_model -> positionUpdated(coordinate);
 }

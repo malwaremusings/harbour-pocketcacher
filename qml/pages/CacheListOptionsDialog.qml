@@ -80,8 +80,10 @@ Dialog {
                     }
 
                     MenuItem { text: "Latitude" }
-
                     MenuItem { text: "Longitude" }
+                    MenuItem { text: "Colour" }
+                    MenuItem { text: "Distance" }
+                    MenuItem { text: "Bearing" }
                 }
             }
 
@@ -124,6 +126,9 @@ Dialog {
                     MenuItem { text: "Placed Time" }
                     MenuItem { text: "Latitude" }
                     MenuItem { text: "Longitude" }
+                    MenuItem { text: "Colour" }
+                    MenuItem { text: "Distance" }
+                    MenuItem { text: "Bearing" }
                 }
             }
 

@@ -65,6 +65,14 @@ QVariant CacheListModel::data(const QModelIndex &index, int role) const
         case ColourRole:
             ret = item -> colour();
             break;
+        case DistanceRole:
+            qDebug() << "CacheListModel::data(DistanceRole)";
+            ret = m_position.distanceTo(QGeoCoordinate(item -> lat(),item -> lon()));
+            break;
+        case BearingRole:
+            qDebug() << "CacheListModel::data(BearingRole)";
+            ret = m_position.azimuthTo(QGeoCoordinate(item -> lat(),item -> lon()));
+            break;
         }
     }
 
@@ -83,6 +91,16 @@ int CacheListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return m_caches.count();
+}
+
+int CacheListModel::recalcInterval()
+{
+    return m_recalcInterval;
+}
+
+void CacheListModel::setRecalcInterval(int recalcInterval)
+{
+    m_recalcInterval = recalcInterval;
 }
 
 #if 0
@@ -134,8 +152,24 @@ QHash<int, QByteArray>CacheListModel::roleNames() const {
     roles[LatRole] = "lat";
     roles[LonRole] = "lon";
     roles[ColourRole] = "colour";
+    roles[DistanceRole] = "distance";
+    roles[BearingRole] = "bearing";
 
     return roles;
+}
+
+void CacheListModel::positionUpdated(QGeoCoordinate coordinate)
+{
+    m_position = coordinate;
+    qint64 now = QDateTime::currentMSecsSinceEpoch() / 1000;
+
+    if ((now - m_position_timestamp >= m_recalcInterval) && (m_caches.size() > 0)) {
+        QModelIndex topLeft = this -> index(0,0);
+        QModelIndex bottomRight = this -> index(m_caches.size() - 1,0);
+
+        emit dataChanged(topLeft,bottomRight,QVector<int> {DistanceRole,BearingRole});
+        m_position_timestamp = now;
+    }
 }
 
 /* custom methods */

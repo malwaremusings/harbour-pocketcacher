@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSortFilterProxyModel>
+#include <QGeoPositionInfo>
 #include "cachelistmodel.h"
 
 class CacheSortFilterModel : public QSortFilterProxyModel
@@ -18,6 +19,7 @@ public:
     Q_INVOKABLE void startSort(int column, Qt::SortOrder order = Qt::AscendingOrder);
     Q_INVOKABLE int getSortColumn();
     Q_INVOKABLE void stopSort();
+    Q_INVOKABLE void setRecalcInterval(int recalcInterval);
 
 private:
     CacheListModel *m_model;
@@ -27,6 +29,7 @@ signals:
 
 public slots:
     int loadedCount();
+    void positionUpdated(QGeoCoordinate coordinate);
 };
 
 #endif // CACHESORTFILTERMODEL_H

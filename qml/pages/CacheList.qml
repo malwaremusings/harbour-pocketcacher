@@ -33,7 +33,7 @@ import QtQuick 2.2
 import QtPositioning 5.3
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
-// import com.malwaremusings 0.1    /* for PocketQueryDataSource enum Status */
+import com.malwaremusings 0.1    /* for PocketQueryDataSource enum Status */
 import ".."
 
 Page {
@@ -89,9 +89,14 @@ Page {
                             if (optionsDialog.sortEnabled) {
                                 app.caches.sortRole = optionsDialog.sortRole;
                                 app.caches.sortOrder = optionsDialog.sortOrder;
-                                app.caches.sortEnabled = optionsDialog.sortEnabled; /* will initiate a sort */
                             }
-                            app.caches.sortEnabled = optionsDialog.sortEnabled;
+                            if (optionsDialog.sortEnabled && (optionsDialog.sortRole === CacheListModel.DistanceRole || optionsDialog.sortRole === CacheListModel.BearingRole)) {
+                                app.caches.setRecalcInterval(10);
+                            } else {
+                                app.caches.setRecalcInterval(0);
+                            }
+
+                            app.caches.sortEnabled = optionsDialog.sortEnabled; /* will initiate a sort */
 
                             if (optionsDialog.filterEnabled) {
                                 app.caches.filterRole = optionsDialog.filterRole;
@@ -148,10 +153,10 @@ Page {
                  * Calculating these here rather than in the 'Label' object stops the ListView from
                  * needlessly fetching the cache's lon and lat for every position update
                  */
-                property var cachecoords: QtPositioning.coordinate(lat,lon)
-                property var hereiam: app.myPosition.coordinate
-                property real distance: hereiam.distanceTo(cachecoords)
-                property real bearing: hereiam.azimuthTo(cachecoords)
+                // property var cachecoords: QtPositioning.coordinate(lat,lon)
+                // property var hereiam: app.myPosition.coordinate
+                // property real distance: hereiam.distanceTo(cachecoords)
+                // property real bearing: hereiam.azimuthTo(cachecoords)
 
                 // visible: app.pqds.status !== PocketQueryDataSource.Loading
 
