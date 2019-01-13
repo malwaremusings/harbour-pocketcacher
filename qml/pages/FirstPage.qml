@@ -106,8 +106,14 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("My Position")
+                text: qsTr("GPS Information")
                 visible: app.myPosition.coordinate.isValid
+            }
+
+            DetailItem {
+                x: Theme.horizontalPageMargin
+                label: qsTr("Satellites in use/view")
+                value: app.satinfo.numSatellitesInUse + "/" + app.satinfo.numSatellitesInView
             }
 
             DetailItem {

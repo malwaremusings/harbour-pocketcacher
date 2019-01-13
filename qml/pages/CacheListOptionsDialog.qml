@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import com.malwaremusings 0.1
+import com.malwaremusings 0.2
 
 Dialog {
     property bool sortEnabled

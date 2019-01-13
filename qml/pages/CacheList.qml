@@ -33,7 +33,7 @@ import QtQuick 2.2
 import QtPositioning 5.3
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
-import com.malwaremusings 0.1    /* for PocketQueryDataSource enum Status */
+import com.malwaremusings 0.2    /* for PocketQueryDataSource enum Status */
 import ".."
 
 Page {

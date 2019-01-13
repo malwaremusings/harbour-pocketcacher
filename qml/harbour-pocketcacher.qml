@@ -34,7 +34,7 @@ import QtPositioning 5.3
 import QtSensors 5.0
 // import Nemo.Notifications 1.0    /* for placing messages on status/notifications page                      */
                                     /* see https://sailfishos.org/develop/docs/nemo-qml-plugin-notifications/ */
-import com.malwaremusings 0.1
+import com.malwaremusings 0.2
 import "pages"
 
 
@@ -48,6 +48,7 @@ ApplicationWindow
     //property alias cachemodel: caches
     //property alias allcaches: cache
     property alias pqds: pqds
+    property alias satinfo: satinfo
     property alias beeper: beeper
 
     CacheSortFilterModel {
@@ -93,6 +94,13 @@ ApplicationWindow
         Database {
             id: dbLogBookModel
         }
+    }
+
+    CacherSatelliteInfoSource {
+        id: satinfo
+
+        updateInterval: 0
+        active: true
     }
 
     PositionSource {

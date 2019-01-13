@@ -37,6 +37,7 @@
 #include "cachelistmodel.h"
 #include "pocketquerydatasource.h"
 #include "cachesortfiltermodel.h"
+#include "cachersatelliteinfosource.h"
 
 int main(int argc, char *argv[])
 {
@@ -60,11 +61,12 @@ int main(int argc, char *argv[])
     // view -> rootContext() -> setContextProperty("appVersion",APP_VERSION);
     // view -> rootContext() -> setContextProperty("appBuildNum",APP_BUILDNUM);
 
-    qmlRegisterType<Beeper>("com.malwaremusings",0,1,"Beeper");
-    qmlRegisterType<Cache>("com.malwaremusings",0,1,"Cache");
-    qmlRegisterType<CacheListModel>("com.malwaremusings",0,1,"CacheListModel");
-    qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,1,"PocketQueryDataSource");
-    qmlRegisterType<CacheSortFilterModel>("com.malwaremusings",0,1,"CacheSortFilterModel");
+    qmlRegisterType<Beeper>("com.malwaremusings",0,2,"Beeper");
+    qmlRegisterType<Cache>("com.malwaremusings",0,2,"Cache");
+    qmlRegisterType<CacheListModel>("com.malwaremusings",0,2,"CacheListModel");
+    qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,2,"PocketQueryDataSource");
+    qmlRegisterType<CacheSortFilterModel>("com.malwaremusings",0,2,"CacheSortFilterModel");
+    qmlRegisterType<CacherSatelliteInfoSource>("com.malwaremusings",0,2,"CacherSatelliteInfoSource");
 
     view -> setSource(SailfishApp::pathTo("qml/harbour-pocketcacher.qml"));
     view -> show();

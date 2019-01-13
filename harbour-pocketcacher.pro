@@ -22,7 +22,8 @@ SOURCES += src/harbour-pocketcacher.cpp \
     src/cache.cpp \
     src/geocachedatasource.cpp \
     src/pocketquerydatasource.cpp \
-    src/cachesortfiltermodel.cpp
+    src/cachesortfiltermodel.cpp \
+    src/cachersatelliteinfosource.cpp
 
 DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
@@ -65,4 +66,5 @@ HEADERS += \
     src/cache.h \
     src/geocachedatasource.h \
     src/pocketquerydatasource.h \
-    src/cachesortfiltermodel.h
+    src/cachesortfiltermodel.h \
+    src/cachersatelliteinfosource.h

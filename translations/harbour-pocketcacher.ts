@@ -136,10 +136,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>My Position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Log Book</source>
         <translation type="unfinished"></translation>
     </message>
@@ -173,6 +169,14 @@
     </message>
     <message>
         <source>Build time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPS Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satellites in use/view</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
