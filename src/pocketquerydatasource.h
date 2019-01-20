@@ -6,6 +6,7 @@
 #include <QGeoCoordinate>
 #include <QXmlStreamReader>
 #include <QDebug>
+#include <QQmlEngine>
 #include "geocachedatasource.h"
 #include "cache.h"
 // #include "cachelistmodel.h"

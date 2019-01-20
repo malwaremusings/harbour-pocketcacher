@@ -14,8 +14,10 @@ int CacherSatelliteInfoSource::updateInterval()
 
 void CacherSatelliteInfoSource::setUpdateInterval(int updateInterval)
 {
-    m_source -> setUpdateInterval(updateInterval);
-    emit updateIntervalChanged();
+    if (m_source) {
+        m_source -> setUpdateInterval(updateInterval);
+        emit updateIntervalChanged();
+    }
 }
 
 bool CacherSatelliteInfoSource::active()
@@ -25,7 +27,7 @@ bool CacherSatelliteInfoSource::active()
 
 void CacherSatelliteInfoSource::setActive(bool active)
 {
-    if (m_active != active) {
+    if (m_active != active && m_source) {
         m_active = active;
         if (active) {
             m_source -> startUpdates();

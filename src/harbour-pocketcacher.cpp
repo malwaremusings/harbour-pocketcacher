@@ -28,9 +28,9 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef QT_QML_DEBUG
+// #ifdef QT_QML_DEBUG
 #include <QtQuick>
-#endif
+// #endif
 
 #include <sailfishapp.h>
 #include "Beeper.h"
@@ -38,6 +38,8 @@
 #include "pocketquerydatasource.h"
 #include "cachesortfiltermodel.h"
 #include "cachersatelliteinfosource.h"
+#include "cachernetworkaccessmanager.h"
+#include "okapidatasource.h"
 
 int main(int argc, char *argv[])
 {
@@ -67,6 +69,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<PocketQueryDataSource>("com.malwaremusings",0,2,"PocketQueryDataSource");
     qmlRegisterType<CacheSortFilterModel>("com.malwaremusings",0,2,"CacheSortFilterModel");
     qmlRegisterType<CacherSatelliteInfoSource>("com.malwaremusings",0,2,"CacherSatelliteInfoSource");
+    qmlRegisterType<OKAPIDataSource>("com.malwaremusings",0,2,"OKAPIDataSource");
+    qmlRegisterType<CacherNetworkAccessManager>("com.malwaremusings",0,2,"CacherNetworkAccessManager");
 
     view -> setSource(SailfishApp::pathTo("qml/harbour-pocketcacher.qml"));
     view -> show();

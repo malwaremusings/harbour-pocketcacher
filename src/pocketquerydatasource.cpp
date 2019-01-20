@@ -1,4 +1,3 @@
-#include <QQmlEngine>
 #include "pocketquerydatasource.h"
 #include "geocachedatasource.h"
 

@@ -11,6 +11,9 @@ Page {
     property real distance: hereiam.distanceTo(cachecoords)
     property real bearing: hereiam.azimuthTo(cachecoords)
 
+    // The effective value will be restricted by ApplicationWindow.allowedOrientations
+    allowedOrientations: Orientation.All
+
     SilicaFlickable {
         // anchors {
         //     top:header.bottom
@@ -43,8 +46,9 @@ Page {
         Column {
             id: colCacheDetails
 
-            anchors.leftMargin: Theme.horizontalPageMargin
-            anchors.rightMargin: Theme.horizontalPageMargin
+            // anchors.leftMargin: Theme.horizontalPageMargin
+            // anchors.rightMargin: Theme.horizontalPageMargin
+            // anchors.fill: parent
             width: parent.width
 
             PageHeader {
@@ -58,8 +62,8 @@ Page {
             }
 
             Row {
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
+                // anchors.leftMargin: Theme.horizontalPageMargin
+                // anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {
@@ -84,8 +88,8 @@ Page {
             }
 
             Row {
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
+                // anchors.leftMargin: Theme.horizontalPageMargin
+                // anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {
@@ -114,8 +118,8 @@ Page {
             }
 
             Row {
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
+                // anchors.leftMargin: Theme.horizontalPageMargin
+                // anchors.rightMargin: Theme.horizontalPageMargin
                 width: parent.width
 
                 Label {

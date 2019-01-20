@@ -48,8 +48,13 @@ ApplicationWindow
     //property alias cachemodel: caches
     //property alias allcaches: cache
     property alias pqds: pqds
+    property alias okapids: okapids
     property alias satinfo: satinfo
     property alias beeper: beeper
+
+    Database {
+        id: dbSettings
+    }
 
     CacheSortFilterModel {
         id: caches
@@ -82,6 +87,20 @@ ApplicationWindow
         model: caches
 
         onSourceChanged: {
+            loadCaches();
+        }
+    }
+
+    CacherNetworkAccessManager {
+        id: network
+    }
+
+    OKAPIDataSource {
+        id: okapids
+        model: caches
+        network: network
+
+        onHostChanged: {
             loadCaches();
         }
     }
@@ -181,6 +200,16 @@ ApplicationWindow
             beeper.setFrequency(440);
             // beeper.beep(880,1);
         }
+    }
+
+    Component.onCompleted: {
+        dbSettings.doQuery("SELECT value FROM settings WHERE name = 'consumer_key'",[],function(results) {
+            if (results.rows.length === 1) {
+                var r = results.rows.item(0);
+
+                okapids.setConsumerKey(r.value);
+            }
+        });
     }
 
     initialPage: Component { FirstPage { } }

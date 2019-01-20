@@ -9,8 +9,8 @@ Dialog {
 
     SilicaFlickable {
         anchors.fill: parent
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.rightMargin: Theme.horizontalPageMargin
+        // anchors.leftMargin: Theme.horizontalPageMargin
+        // anchors.rightMargin: Theme.horizontalPageMargin
         contentHeight: colCacheLogger.height
 
         Column {
@@ -47,6 +47,8 @@ Dialog {
                 rows: 2
 
                 width: parent.width
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 spacing: Theme.paddingMedium
 
                 Label {

@@ -39,10 +39,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load PocketQuery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No geocaches loaded</source>
         <translation type="unfinished"></translation>
     </message>
@@ -52,6 +48,29 @@
     </message>
     <message>
         <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load caches</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CacheLoad</name>
+    <message>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>United Kingdom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Germany</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Site</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
