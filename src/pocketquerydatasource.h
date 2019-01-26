@@ -30,7 +30,7 @@ public:
     explicit PocketQueryDataSource(QObject *parent = nullptr);
     ~PocketQueryDataSource();
 
-    Q_INVOKABLE bool loadCaches();
+    Q_INVOKABLE bool loadCaches(QGeoCoordinate location);
 
 private:
     QString m_xmlNamespace = nullptr;

@@ -48,7 +48,7 @@ public:
     /*
      * load the caches in to the 'caches' QVector
      */
-    virtual bool loadCaches() = 0;
+    virtual bool loadCaches(QGeoCoordinate location = QGeoCoordinate()) = 0;
 
     /*
      * read and remove a cache from the 'caches' QVector

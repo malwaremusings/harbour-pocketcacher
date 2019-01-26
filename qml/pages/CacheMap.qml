@@ -41,22 +41,63 @@ Page {
                 model: app.caches
                 delegate: mapItemCache
             }
+
+            /* show my position */
+            MapQuickItem {
+                id: cacherPosition
+
+                coordinate: app.myPosition.coordinate
+                anchorPoint.x: Theme.iconSizeExtraSmall * 0.5
+                anchorPoint.y: Theme.iconSizeExtraSmall * 0.5
+
+                sourceItem: Rectangle {
+                    color: "red"
+                    width: Theme.iconSizeSmall * 0.5
+                    height: Theme.iconSizeSmall * 0.5
+                    radius: Theme.iconSizeSmall
+                }
+            }
         }
 
         Component {
             id: mapItemCache
 
-            MapCircle {
-                center: QtPositioning.coordinate(lat,lon)
-                radius: 10
-                border.width: 3
-                color: colour
+            MapQuickItem {
+                coordinate: QtPositioning.coordinate(lat,lon)
 
-                MouseArea {
-                    anchors.fill: parent
+                anchorPoint.x: rectCache.width * 0.5
+                anchorPoint.y: rectCache.height * 0.5
 
-                    onClicked: {
-                        console.debug("Map click on " + name);
+                sourceItem: Column {
+                    Rectangle {
+                        id: rectCache
+
+                        width: Theme.iconSizeSmall * 0.5
+                        height: Theme.iconSizeSmall * 0.5
+                        radius: Theme.iconSizeSmall
+                        border.width: 3
+                        color: colour
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                console.debug("Map click on " + name);
+                            }
+                        }
+                    }
+
+                    Text {
+                        text: name
+                        anchors.horizontalCenter: rectCache.horizontalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                console.debug("Map click on " + name);
+                            }
+                        }
                     }
                 }
             }

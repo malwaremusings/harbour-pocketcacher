@@ -183,7 +183,7 @@ void PocketQueryDataSource::readGpx() {
     }
 }
 
-bool PocketQueryDataSource::loadCaches()
+bool PocketQueryDataSource::loadCaches(QGeoCoordinate location)
 {
     bool ret = false;
 

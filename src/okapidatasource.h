@@ -32,8 +32,8 @@ public:
     Q_INVOKABLE QString host();
     Q_INVOKABLE void setHost(QString host);
 
-    Q_INVOKABLE bool searchCaches();
-    Q_INVOKABLE bool loadCaches();
+    Q_INVOKABLE bool searchCaches(QGeoCoordinate location);
+    Q_INVOKABLE bool loadCaches(QGeoCoordinate location);
 
 private:
     QString m_consumerKey;

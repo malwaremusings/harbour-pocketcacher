@@ -39,19 +39,26 @@ void OKAPIDataSource::setHost(QString host)
     }
 }
 
-bool OKAPIDataSource::searchCaches()
+bool OKAPIDataSource::searchCaches(QGeoCoordinate location)
 {
     bool ret = false;
 
     if (m_network) {
-        QString urlStr = "https://";
-        urlStr.append(m_host);
-        urlStr.append("/okapi/services/caches/shortcuts/search_and_retrieve?consumer_key=");
-        urlStr.append(m_consumerKey);
-        urlStr.append("&search_method=services/caches/search/nearest&search_params={\"center\":\"-35.31|149.20\"}&retr_method=services/caches/geocaches&retr_params={\"fields\":\"code|name|location|type|status|owner|size2|difficulty|terrain|short_description|description|hint2|last_found|date_created\"}&wrap=false");
-        // urlStr.append("&search_method=services/caches/search/nearest&search_params={\"center\":\"-35.31|149.20\"}&retr_method=services/caches/geocaches&retr_params={}&wrap=false");
+#if 0
+        qint64 now = QDateTime::currentMSecsSinceEpoch();
+        double lat_fudge = ((now / 10000000000) + (now % 2000) - 1000);
+        double lat = location.latitude() + lat_fudge;
 
+        now = QDateTime::currentMSecsSinceEpoch();
+        double lon_fudge = ((now / 10000000000) + (now % 2000) - 1000);
+        double lon = location.longitude() + lon_fudge;
+#endif
+
+        QString urlStr = "https://" + m_host + "/okapi/services/caches/shortcuts/search_and_retrieve?consumer_key=" + m_consumerKey + "&search_method=services/caches/search/nearest&search_params={\"center\":\"" + QString::number(location.latitude()) + "|" + QString::number(location.longitude()) + "\"}&radius=100&retr_method=services/caches/geocaches&retr_params={\"fields\":\"code|name|location|type|status|owner|size2|difficulty|terrain|short_description|description|hint2|last_found|date_created\"}&wrap=false";
         qDebug() << "    requesting url: " << urlStr;
+
+        // urlStr = "https://" + m_host + "/okapi/services/caches/shortcuts/search_and_retrieve?consumer_key=" + m_consumerKey + "&search_method=services/caches/search/nearest&search_params={\"center\":\"" + QString::number(lat) + "|" + QString::number(lon) + "\"}&radius=100&retr_method=services/caches/geocaches&retr_params={\"fields\":\"code|name|location|type|status|owner|size2|difficulty|terrain|short_description|description|hint2|last_found|date_created\"}&wrap=false";
+        // qDebug() << "    requesting url: " << urlStr;
         m_reply = m_network -> get(QNetworkRequest(QUrl(urlStr)));
         connect(m_reply,&QNetworkReply::finished,this,&OKAPIDataSource::searchCompleted);
 
@@ -61,10 +68,10 @@ bool OKAPIDataSource::searchCaches()
     return ret;
 }
 
-bool OKAPIDataSource::loadCaches()
+bool OKAPIDataSource::loadCaches(QGeoCoordinate location)
 {
     qDebug() << "OKAPIDataSource::loadCaches()";
-    searchCaches();
+    searchCaches(location);
 
     return false;
 }

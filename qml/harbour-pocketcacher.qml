@@ -87,7 +87,7 @@ ApplicationWindow
         model: caches
 
         onSourceChanged: {
-            loadCaches();
+            loadCaches(posSource.position.coordinate);
         }
     }
 
@@ -101,7 +101,7 @@ ApplicationWindow
         network: network
 
         onHostChanged: {
-            loadCaches();
+            loadCaches(posSource.position.coordinate);
         }
     }
 
