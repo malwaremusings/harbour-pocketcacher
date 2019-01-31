@@ -10,21 +10,22 @@
 #include <QJsonObject>
 #include "geocachedatasource.h"
 #include "cachernetworkaccessmanager.h"
+#include <QGeoCoordinate>
 // #include "resttransaction.h"
 
 class OKAPIDataSource : public GeocacheDataSource
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString consumerKey READ consumerKey WRITE setConsumerKey)
+    Q_PROPERTY(QString consumerKey READ consumerKey)
     Q_PROPERTY(QNetworkAccessManager *network READ network WRITE setNetwork)
     Q_PROPERTY(QString host READ host WRITE setHost NOTIFY hostChanged)
 
 public:
     OKAPIDataSource(QObject *parent = nullptr);
 
-    Q_INVOKABLE QString consumerKey();
-    Q_INVOKABLE void setConsumerKey(QString consumerKey);
+    // Q_INVOKABLE QString consumerKey();
+    // Q_INVOKABLE void setConsumerKey(QString consumerKey);
 
     Q_INVOKABLE QNetworkAccessManager *network();
     Q_INVOKABLE void setNetwork(QNetworkAccessManager *network);
@@ -36,7 +37,7 @@ public:
     Q_INVOKABLE bool loadCaches(QGeoCoordinate location);
 
 private:
-    QString m_consumerKey;
+#include "okapikeys.h"
     QNetworkAccessManager *m_network;
     QString m_host;
     QNetworkReply *m_reply;

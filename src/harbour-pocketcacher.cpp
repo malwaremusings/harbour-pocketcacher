@@ -33,7 +33,7 @@
 // #endif
 
 #include <sailfishapp.h>
-#include "Beeper.h"
+#include "beeper.h"
 #include "cachelistmodel.h"
 #include "pocketquerydatasource.h"
 #include "cachesortfiltermodel.h"

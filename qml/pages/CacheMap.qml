@@ -5,6 +5,7 @@ import QtLocation 5.0
 
 Page {
     property var mapCentre
+    backNavigation: false
 
     Plugin {
         id: mapPlugin
@@ -17,13 +18,20 @@ Page {
         // mapCache.zoomLevel = mapCache.maximumZoomLevel;
     }
 
-    SilicaFlickable {
+    Column {
         anchors.fill: parent
+        // anchors.top: parent.top
+        // anchors.bottom: parent.bottom
+        // anchors.horizontalCenter: parent.horizontalCenter
+        // width: parent.width
 
         Map {
             id: mapCache
 
-            anchors.fill: parent
+            width: parent.width
+            height: parent.height - rowButtonBar.height
+            anchors.horizontalCenter: parent.horizontalCenter
+            // anchors.fill: parent
             /* This looks a bit daft! */
             // anchors.leftMargin: Theme.horizontalPageMargin
             // anchors.rightMargin: Theme.horizontalPageMargin
@@ -59,6 +67,29 @@ Page {
             }
         }
 
+        Row {
+            id: rowButtonBar
+
+            Rectangle {
+                // anchors.bottom: mapCache.bottom
+                // anchors.left: mapCache.left
+                color: Theme.highlightBackgroundColor
+                width: buttonBack.width
+                height: buttonBack.height
+
+                Button {
+                    id: buttonBack
+                    anchors.fill: parent
+
+                    text: qsTr("Back")
+
+                    onClicked: {
+                        pageStack.pop();
+                    }
+                }
+            }
+        }
+
         Component {
             id: mapItemCache
 
@@ -83,6 +114,7 @@ Page {
 
                             onClicked: {
                                 console.debug("Map click on " + name);
+                                pageStack.push(Qt.resolvedUrl("CacheDetails.qml"),{ cache: miv.model.getCache(index) });
                             }
                         }
                     }
@@ -96,6 +128,7 @@ Page {
 
                             onClicked: {
                                 console.debug("Map click on " + name);
+                                pageStack.push(Qt.resolvedUrl("CacheDetails.qml"),{ cache: miv.model.getCache(index) });
                             }
                         }
                     }

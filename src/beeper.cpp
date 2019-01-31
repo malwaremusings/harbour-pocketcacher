@@ -1,24 +1,24 @@
-#include "Beeper.h"
+#include "beeper.h"
 
 Beeper::Beeper(QObject *parent) : QObject(parent)
 {
     error = QAudio::NoError;
     bytebuf = new QByteArray();
 
-    fprintf(stderr,"> Beeper::Beep()\n");
+    qDebug() << "> Beeper::Beep()";
     format.setSampleRate(SAMPLE_RATE);
     format.setChannelCount(1);
     format.setSampleSize(8);
     format.setCodec("audio/pcm");
     format.setByteOrder(QAudioFormat::LittleEndian);
     format.setSampleType(QAudioFormat::UnSignedInt);
-    fprintf(stderr,"< Beeper::Beep()\n");
+    qDebug() << "< Beeper::Beep()";
 }
 
 void Beeper::open() {
     this -> audio = new QAudioOutput(format,this);
-    fprintf(stderr,"  State: %d\n",this -> audio -> state());
-    fprintf(stderr,"  Vol: %f\n",this -> audio -> volume());
+    qDebug("  State: %d",this -> audio -> state());
+    qDebug("  Vol: %f",this -> audio -> volume());
     connect(this -> audio,SIGNAL(stateChanged(QAudio::State)), this, SLOT(handleStateChanged(QAudio::State)));
 }
 
@@ -47,22 +47,22 @@ void Beeper::setNote(int note) {
     qreal freq = 440;
 
     freq = 440 * qPow(1.059463094359295,note);
-    fprintf(stderr,"Beeper::setNote(%d) setting freq to %f\n",note,freq);
+    qDebug("Beeper::setNote(%d) setting freq to %f",note,freq);
     this->setFrequency(freq);
 }
 
 void Beeper::beep() {
-    fprintf(stderr,"> Beeper::beep()\n");
+    qDebug("> Beeper::beep()\n");
     if (!this) {
-        fprintf(stderr,"    [W] this is null -- expect a crash\n");
+        qDebug("    [W] this is null -- expect a crash\n");
     }
     if (!this -> audio) {
-        fprintf(stderr,"    [W] audio is null -- expect a crash\n");
+        qDebug("    [W] audio is null -- expect a crash\n");
     }
 
     this -> input.open(QIODevice::ReadOnly);
     this -> audio -> start(&(this -> input));
-    fprintf(stderr,"< Beeper::beep()\n");
+    qDebug("< Beeper::beep()\n");
 }
 
 void Beeper::close() {
@@ -70,28 +70,28 @@ void Beeper::close() {
 }
 
 void Beeper::handleStateChanged(QAudio::State newState) {
-    fprintf(stderr,"> Beeper::handleStateChanged(%d)\n",newState);
+    qDebug("> Beeper::handleStateChanged(%d)\n",newState);
     switch(newState) {
         case QAudio::ActiveState:
-            fprintf(stderr,"    ActiveState (%d)\n",newState);
+            qDebug("    ActiveState (%d)\n",newState);
         break;
 
         case QAudio::IdleState:
             /* Finished */
-            fprintf(stderr,"    IdleState (%d)\n",newState);
+            qDebug("    IdleState (%d)\n",newState);
             this -> audio -> stop();
             this -> input.close();
         break;
 
         case QAudio::StoppedState:
             /* Stopped for other reasons */
-            fprintf(stderr,"    StoppedState (%d): %d\n",newState,this -> audio -> error());
+            qDebug("    StoppedState (%d): %d\n",newState,this -> audio -> error());
             this -> error = audio -> error();
         break;
 
         default:
-            fprintf(stderr,"    Unhandled state: %d\n",newState);
+            qDebug("    Unhandled state: %d\n",newState);
         break;
     }
-    fprintf(stderr,"< Beeper::handleStateChanged(%d)\n",newState);
+    qDebug("< Beeper::handleStateChanged(%d)\n",newState);
 }

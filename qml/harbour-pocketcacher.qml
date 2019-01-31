@@ -202,16 +202,6 @@ ApplicationWindow
         }
     }
 
-    Component.onCompleted: {
-        dbSettings.doQuery("SELECT value FROM settings WHERE name = 'consumer_key'",[],function(results) {
-            if (results.rows.length === 1) {
-                var r = results.rows.item(0);
-
-                okapids.setConsumerKey(r.value);
-            }
-        });
-    }
-
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations

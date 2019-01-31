@@ -8,6 +8,7 @@
 #include <QAudioFormat>
 #include <QAudioOutput>
 #include <QtMath>
+#include <QDebug>
 
 #define SAMPLE_RATE 8000
 #define FREQ_CONST ((2.0 * M_PI) / SAMPLE_RATE)

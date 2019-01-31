@@ -75,6 +75,13 @@
     </message>
 </context>
 <context>
+    <name>CacheMap</name>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CacheNavigate</name>
     <message>
         <source>Owner</source>
