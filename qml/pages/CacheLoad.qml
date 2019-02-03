@@ -60,7 +60,7 @@ Dialog {
                     }
 
                     MenuItem {
-                        property string hostname: "opencaching.de"
+                        property string hostname: "www.opencaching.de"
                         text: qsTr("Germany")
                     }
                 }
@@ -98,7 +98,10 @@ Dialog {
             case 1:
                 /* OpenCaching */
                 console.debug("    OpenCaching: " + comboSite.currentItem.hostname);
-                app.okapids.host = comboSite.currentItem.hostname;
+
+                /* should be if we don't have a token for this site */
+                pageStack.push(Qt.resolvedUrl("CacherOAuthWeb.qml"),{host: comboSite.currentItem.hostname,returnPage: parent});
+
                 break;
             }
         }

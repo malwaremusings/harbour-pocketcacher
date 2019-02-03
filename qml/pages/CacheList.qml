@@ -121,13 +121,6 @@ Page {
                         pageStack.push(Qt.resolvedUrl("CacheLoad.qml"));
                     }
                 }
-
-                // MenuItem {
-                //     text: qsTr("Load PocketQuery")
-                //     onClicked: {
-                //         pageStack.push(filePickerPage);
-                //     }
-                // }
             }
 
             VerticalScrollDecorator {}

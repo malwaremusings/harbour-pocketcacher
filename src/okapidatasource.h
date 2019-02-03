@@ -17,7 +17,6 @@ class OKAPIDataSource : public GeocacheDataSource
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString consumerKey READ consumerKey)
     Q_PROPERTY(QNetworkAccessManager *network READ network WRITE setNetwork)
     Q_PROPERTY(QString host READ host WRITE setHost NOTIFY hostChanged)
 

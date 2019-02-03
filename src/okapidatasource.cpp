@@ -38,11 +38,13 @@ bool OKAPIDataSource::searchCaches(QGeoCoordinate location)
         double fudge_bearing = (now / 10) % 360;
         QGeoCoordinate fudge_location = location.atDistanceAndAzimuth(fudge_dist,fudge_bearing);
 
-        QString urlStr = "https://" + m_host + "/okapi/services/caches/shortcuts/search_and_retrieve?consumer_key=" + consumerKey() + "&search_method=services/caches/search/nearest&search_params={\"center\":\"" + QString::number(fudge_location.latitude()) + "|" + QString::number(fudge_location.longitude()) + "\"}&radius=100&retr_method=services/caches/geocaches&retr_params={\"fields\":\"code|name|location|type|status|owner|size2|difficulty|terrain|short_description|description|hint2|last_found|date_created\"}&wrap=false";
-        // qDebug() << "    requesting url: " << urlStr;
+        QString postStr = "consumer_key=" + consumerKey(m_host) + "&search_method=services/caches/search/nearest&search_params={\"center\":\"" + QString::number(fudge_location.latitude()) + "|" + QString::number(fudge_location.longitude()) + "\"}&radius=100&retr_method=services/caches/geocaches&retr_params={\"fields\":\"code|name|location|type|status|owner|size2|difficulty|terrain|short_description|description|hint2|last_found|date_created\"}&wrap=false";
+        QByteArray postByteArray = QByteArray::fromStdString(postStr.toStdString());
         qDebug() << "    fudge: " << location.distanceTo(fudge_location) << "m @ " << location.azimuthTo(fudge_location);
 
-        m_reply = m_network -> get(QNetworkRequest(QUrl(urlStr)));
+        QNetworkRequest request = QNetworkRequest(QUrl("https://" + m_host + "/okapi/services/caches/shortcuts/search_and_retrieve"));
+        request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+        m_reply = m_network -> post(request,postByteArray);
         connect(m_reply,&QNetworkReply::finished,this,&OKAPIDataSource::searchCompleted);
 
         ret = true;
@@ -61,7 +63,7 @@ bool OKAPIDataSource::loadCaches(QGeoCoordinate location)
 
 void OKAPIDataSource::searchCompleted()
 {
-    qDebug() << "OKAPIDataSource::requestCompleted()";
+    qDebug() << "OKAPIDataSource::searchCompleted()";
 
     QByteArray jsonText = m_reply -> readAll();
     m_reply->deleteLater();
@@ -70,7 +72,6 @@ void OKAPIDataSource::searchCompleted()
     QVariantMap jObject = jDoc.object().toVariantMap();
 
     /* add returned caches to model */
-    // qDebug() << "  Iterating:";
 
     QVariantMap::const_iterator end = jObject.end();
     for (QVariantMap::const_iterator i = jObject.begin(); i != end; i++) {

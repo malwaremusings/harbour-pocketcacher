@@ -40,6 +40,7 @@
 #include "cachersatelliteinfosource.h"
 #include "cachernetworkaccessmanager.h"
 #include "okapidatasource.h"
+#include "cacheroauth.h"
 
 int main(int argc, char *argv[])
 {
@@ -71,6 +72,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacherSatelliteInfoSource>("com.malwaremusings",0,2,"CacherSatelliteInfoSource");
     qmlRegisterType<OKAPIDataSource>("com.malwaremusings",0,2,"OKAPIDataSource");
     qmlRegisterType<CacherNetworkAccessManager>("com.malwaremusings",0,2,"CacherNetworkAccessManager");
+    qmlRegisterType<CacherOAuth>("com.malwaremusings",0,2,"CacherOAuth");
 
     view -> setSource(SailfishApp::pathTo("qml/harbour-pocketcacher.qml"));
     view -> show();

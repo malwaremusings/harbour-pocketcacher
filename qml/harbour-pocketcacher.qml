@@ -49,6 +49,7 @@ ApplicationWindow
     //property alias allcaches: cache
     property alias pqds: pqds
     property alias okapids: okapids
+    property alias oauth: oauth
     property alias satinfo: satinfo
     property alias beeper: beeper
 
@@ -95,12 +96,18 @@ ApplicationWindow
         id: network
     }
 
+    CacherOAuth {
+        id: oauth
+        network: network
+    }
+
     OKAPIDataSource {
         id: okapids
         model: caches
         network: network
 
         onHostChanged: {
+            oauth.host = host;
             loadCaches(posSource.position.coordinate);
         }
     }

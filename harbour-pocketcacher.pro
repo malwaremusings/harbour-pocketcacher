@@ -21,6 +21,7 @@ CONFIG(release) {
 QT += location multimedia
 
 SOURCES += src/harbour-pocketcacher.cpp \
+    src/beeper.cpp \
     src/cachelistmodel.cpp \
     src/cache.cpp \
     src/geocachedatasource.cpp \
@@ -29,7 +30,7 @@ SOURCES += src/harbour-pocketcacher.cpp \
     src/cachersatelliteinfosource.cpp \
     src/okapidatasource.cpp \
     src/cachernetworkaccessmanager.cpp \
-    src/beeper.cpp
+    src/cacheroauth.cpp
 
 DISTFILES += qml/harbour-pocketcacher.qml \
     qml/cover/CoverPage.qml \
@@ -52,7 +53,8 @@ DISTFILES += qml/harbour-pocketcacher.qml \
     qml/harbour-pocketcacher.js \
     qml/Database.qml \
     qml/pages/CacheListOptionsDialog.qml \
-    qml/pages/CacheLoad.qml
+    qml/pages/CacheLoad.qml \
+    qml/pages/CacherOAuthWeb.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -67,6 +69,7 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-pocketcacher-de.ts
 
 HEADERS += \
+    src/beeper.h \
     src/cachelistmodel.h \
     src/cache.h \
     src/geocachedatasource.h \
@@ -74,6 +77,6 @@ HEADERS += \
     src/cachesortfiltermodel.h \
     src/cachersatelliteinfosource.h \
     src/okapidatasource.h \
-    src/cachernetworkaccessmanager.h \
     src/okapikeys.h \
-    src/beeper.h
+    src/cachernetworkaccessmanager.h \
+    src/cacheroauth.h
