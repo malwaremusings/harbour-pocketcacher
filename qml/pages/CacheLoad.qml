@@ -2,12 +2,6 @@ import QtQuick 2.2
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 
-/*
- * currently unused until i can get file i/o
- * working, which i suspect will require a c++
- * module
- */
-
 Dialog {
     id: dialogCacheFetch
 
@@ -63,6 +57,26 @@ Dialog {
                         property string hostname: "www.opencaching.de"
                         text: qsTr("Germany")
                     }
+
+                    MenuItem {
+                        property string hostname: "www.opencaching.nl"
+                        text: qsTr("Netherlands")
+                    }
+
+                    MenuItem {
+                        property string hostname: "opencaching.pl"
+                        text: qsTr("Poland")
+                    }
+
+                    MenuItem {
+                        property string hostname: "www.opencaching.ro"
+                        text: qsTr("Romania")
+                    }
+
+                    MenuItem {
+                        property string hostname: "www.opencaching.us"
+                        text: qsTr("United States of America")
+                    }
                 }
             }
         }
@@ -98,10 +112,10 @@ Dialog {
             case 1:
                 /* OpenCaching */
                 console.debug("    OpenCaching: " + comboSite.currentItem.hostname);
+                app.okapids.host = comboSite.currentItem.hostname;
 
                 /* should be if we don't have a token for this site */
-                pageStack.push(Qt.resolvedUrl("CacherOAuthWeb.qml"),{host: comboSite.currentItem.hostname,returnPage: parent});
-
+                // pageStack.push(Qt.resolvedUrl("CacherOAuthWeb.qml"),{host: comboSite.currentItem.hostname,returnPage: parent});
                 break;
             }
         }

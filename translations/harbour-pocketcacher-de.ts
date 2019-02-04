@@ -73,6 +73,22 @@
         <source>Site</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Netherlands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romania</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>United States of America</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CacheMap</name>

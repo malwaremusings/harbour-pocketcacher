@@ -66,7 +66,7 @@ void OKAPIDataSource::searchCompleted()
     qDebug() << "OKAPIDataSource::searchCompleted()";
 
     QByteArray jsonText = m_reply -> readAll();
-    m_reply->deleteLater();
+    m_reply -> deleteLater();
 
     QJsonDocument jDoc = QJsonDocument::fromJson(jsonText);
     QVariantMap jObject = jDoc.object().toVariantMap();

@@ -3,7 +3,6 @@ import Sailfish.Silica 1.0
 
 Page {
     property string host
-    property var returnPage
 
     SilicaWebView {
         id: webView
