@@ -16,6 +16,9 @@
 #- Scrubbed the deck
 #- Hoisted the sails
 
+* Mon Feb 04 2019 malwaremuser <malwaremuser@users.noreply.github.com> 0.2.2-1
+- [Added] OKAPIDataSource: Add support for the remaining OpenCaching sites (Germany, Netherlands, Poland, Romania, United States of America)
+
 * Thu Jan 31 2019 malwaremuser <malwaremuser@users.noreply.github.com> 0.2.1-1
 - [Added] OKAPIDataSource: Ability to download caches from opencache.uk
 - [Added] OKAPIDataSource: Fudge the location when requesting cache list from OpenCaching server so as to not reveal the cacher's actual location
